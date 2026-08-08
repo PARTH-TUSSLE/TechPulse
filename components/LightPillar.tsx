@@ -71,12 +71,12 @@ const LightPillar: React.FC<LightPillarProps> = ({
     if (isMobile && quality !== 'low') effectiveQuality = 'low';
 
     const qualitySettings = {
-      low: { iterations: 24, waveIterations: 1, pixelRatio: 0.5, precision: 'mediump', stepMultiplier: 1.5 },
-      medium: { iterations: 40, waveIterations: 2, pixelRatio: 0.65, precision: 'mediump', stepMultiplier: 1.2 },
+      low: { iterations: 16, waveIterations: 1, pixelRatio: 0.5, precision: 'mediump', stepMultiplier: 1.5 },
+      medium: { iterations: 28, waveIterations: 2, pixelRatio: 0.6, precision: 'mediump', stepMultiplier: 1.2 },
       high: {
-        iterations: 80,
-        waveIterations: 4,
-        pixelRatio: Math.min(window.devicePixelRatio, 2),
+        iterations: 48,
+        waveIterations: 3,
+        pixelRatio: Math.min(window.devicePixelRatio, 1.5),
         precision: 'highp',
         stepMultiplier: 1.0
       }
@@ -111,6 +111,17 @@ const LightPillar: React.FC<LightPillarProps> = ({
     renderer.setPixelRatio(settings.pixelRatio);
     container.appendChild(renderer.domElement);
     rendererRef.current = renderer;
+
+    // Adaptive resolution scaling: start at the requested ratio, then step it
+    // down if frames are too slow so the page stays smooth on weak GPUs.
+    const MIN_PIXEL_RATIO = 0.4;
+    let pixelRatio = settings.pixelRatio;
+    let slowFrameCount = 0;
+
+    const applyPixelRatio = (ratio: number) => {
+      pixelRatio = ratio;
+      renderer.setPixelRatio(ratio);
+    };
 
     // Convert hex colors to RGB
     const parseColor = (hex: string): THREE.Vector3 => {
@@ -323,6 +334,8 @@ const LightPillar: React.FC<LightPillarProps> = ({
     let lastTime = performance.now();
     const targetFPS = effectiveQuality === 'low' ? 30 : 60;
     const frameTime = 1000 / targetFPS;
+    let renderSamples = 0;
+    let renderTotal = 0;
 
     const animate = (currentTime: number) => {
       if (!materialRef.current || !rendererRef.current || !sceneRef.current || !cameraRef.current) return;
@@ -338,13 +351,50 @@ const LightPillar: React.FC<LightPillarProps> = ({
         materialRef.current.uniforms.uRotCos.value = Math.cos(rotAngle);
         materialRef.current.uniforms.uRotSin.value = Math.sin(rotAngle);
 
+        const t0 = performance.now();
         rendererRef.current.render(sceneRef.current, cameraRef.current);
+        const elapsed = performance.now() - t0;
+        renderTotal += elapsed;
+        renderSamples += 1;
+
+        // Sampling window: adjust resolution based on measured render cost. Lower
+        // resolution if frames are slow; recover a step when they turn fast.
+        if (renderSamples >= 30) {
+          const avg = renderTotal / renderSamples;
+          renderSamples = 0;
+          renderTotal = 0;
+          if (avg > frameTime * 1.1 && pixelRatio > MIN_PIXEL_RATIO) {
+            applyPixelRatio(Math.max(MIN_PIXEL_RATIO, pixelRatio * 0.75));
+            slowFrameCount = 0;
+          } else if (avg < frameTime * 0.5 && pixelRatio < settings.pixelRatio) {
+            slowFrameCount += 1;
+            if (slowFrameCount >= 3) {
+              applyPixelRatio(Math.min(settings.pixelRatio, pixelRatio / 0.75));
+              slowFrameCount = 0;
+            }
+          } else {
+            slowFrameCount = 0;
+          }
+        }
+
         lastTime = currentTime - (deltaTime % frameTime);
       }
 
       rafRef.current = requestAnimationFrame(animate);
     };
     rafRef.current = requestAnimationFrame(animate);
+
+    // Pause rendering while the tab is hidden — a major battery/CPU win.
+    const handleVisibility = () => {
+      if (document.hidden && rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      } else if (!document.hidden && !rafRef.current) {
+        lastTime = performance.now();
+        rafRef.current = requestAnimationFrame(animate);
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
 
     // Handle resize with debouncing
     let resizeTimeout: number | null = null;
@@ -366,6 +416,7 @@ const LightPillar: React.FC<LightPillarProps> = ({
 
     // Cleanup
     return () => {
+      document.removeEventListener('visibilitychange', handleVisibility);
       window.removeEventListener('resize', handleResize);
       if (interactive) {
         container.removeEventListener('mousemove', handleMouseMove);
