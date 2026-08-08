@@ -7,10 +7,13 @@ export const club = {
   purpose: ["betterment", "exposure", "guidance"],
 };
 
+export const joinUrl = "https://forms.gle/L5VFa2Z2wKLWT2NA8";
+
 export const nav = [
   { label: "Home", href: "#home" },
   { label: "Team", href: "#team" },
   { label: "Events", href: "#events" },
+  { label: "Join Us", href: joinUrl },
 ];
 
 export const socials = {
