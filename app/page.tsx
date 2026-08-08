@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import Purpose from "@/components/Purpose";
 import Team from "@/components/Team";
 import Events from "@/components/Events";
+import JoinUs from "@/components/JoinUs";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
         <Purpose />
         <Team />
         <Events />
+        <JoinUs />
       </main>
       <Footer />
     </>
