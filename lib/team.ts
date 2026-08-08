@@ -1,102 +1,122 @@
-export interface Member {
+export interface TeamMember {
   id: string;
-  role: string;
   name: string;
-  phone?: string;
-  team?: string;
-  bio: string;
+  role: string;
   lead?: boolean;
+  placeholder?: boolean;
 }
 
-export const team: Member[] = [
+export interface Team {
+  id: string;
+  label: string;
+  title: string;
+  blurb: string;
+  coordinator: TeamMember;
+  members: TeamMember[];
+}
+
+const placeholderMembers = (teamId: string, role: string): TeamMember[] =>
+  Array.from({ length: 5 }, (_, i) => ({
+    id: `${teamId}-slot-${i + 1}`,
+    name: `Member ${i + 1}`,
+    role,
+    placeholder: true,
+  }));
+
+export const leadership: TeamMember[] = [
   {
     id: "president",
-    role: "Student President / Club Coordinator",
     name: "Yash Sharma",
-    phone: "7717406601",
-    bio: "Leads the student body, coordinates with the faculty in-charge, assigns responsibilities, conducts meetings, and monitors the progress of all teams.",
+    role: "Student President · Club Coordinator",
     lead: true,
   },
   {
     id: "vp",
-    role: "Vice President / Deputy Club Coordinator",
     name: "Yash Verma",
-    phone: "9855421527",
-    bio: "Supports the President in planning and managing activities, supervises coordinators, ensures smooth coordination between teams, and leads the club in the President's absence.",
+    role: "Vice President · Deputy Coordinator",
     lead: true,
   },
+];
+
+export const teams: Team[] = [
   {
     id: "technical",
-    role: "Technical Coordinator",
-    name: "Parth Gartan",
-    phone: "9991451446",
-    team: "Aryan Dev",
-    bio: "Handles the technical requirements of workshops, hackathons, coding competitions, project exhibitions, software installations, and connectivity.",
+    label: "Technical",
+    title: "Technical Team",
+    blurb: "Workshops, hackathons, installs and on-ground gear support.",
+    coordinator: { id: "parth-gartan", name: "Parth Gartan", role: "Technical Coordinator" },
+    members: placeholderMembers("technical", "Technical Member"),
   },
   {
-    id: "social-media",
-    role: "Social Media Coordinator",
-    name: "Aditya Kumar",
-    phone: "9779333967",
-    team: "Shivam Yadav",
-    bio: "Manages the club's social media handles and publishes photographs, videos, reels, event announcements, achievements, and activity highlights.",
+    id: "social",
+    label: "Social Media",
+    title: "Social Media Team",
+    blurb: "Reels, posts, captions and everything between the club and its audience.",
+    coordinator: { id: "aditya-kumar", name: "Aditya Kumar", role: "Social Media Coordinator" },
+    members: placeholderMembers("social", "Social Media Member"),
   },
   {
     id: "design",
-    role: "Design & Creative Coordinator",
-    name: "Darshi",
-    phone: "8146422208",
-    bio: "Creates posters, banners, certificates, invitation cards, presentation templates, and other promotional material.",
+    label: "Design",
+    title: "Design & Creative Team",
+    blurb: "Posters, banners, certificates and the look that makes events feel premium.",
+    coordinator: { id: "darshi", name: "Darshi", role: "Design & Creative Coordinator" },
+    members: placeholderMembers("design", "Design Member"),
   },
   {
     id: "photography",
-    role: "Photography & Videography Coordinator",
-    name: "Goranshu",
-    phone: "8437517289",
-    bio: "Captures photographs and videos during activities, edits event highlights, organizes media files, and feeds content to the social media team.",
+    label: "Media",
+    title: "Photography & Videography Team",
+    blurb: "Photos, highlight reels and media coverage for every activity.",
+    coordinator: { id: "goranshu", name: "Goranshu", role: "Photography Coordinator" },
+    members: placeholderMembers("photography", "Media Member"),
   },
   {
     id: "discipline",
-    role: "Discipline & Volunteer Coordinator",
-    name: "Vishal Nath",
-    phone: "8133988099",
-    team: "Ishpreet",
-    bio: "Maintains discipline during events, manages entry and seating, forms volunteer teams, and ensures smooth movement of participants.",
+    label: "Discipline",
+    title: "Discipline & Volunteer Team",
+    blurb: "Entry, queues, seating and smooth ground coordination during events.",
+    coordinator: { id: "vishal-nath", name: "Vishal Nath", role: "Discipline Coordinator" },
+    members: placeholderMembers("discipline", "Volunteer Member"),
   },
   {
     id: "pr",
-    role: "Public Relations & Outreach Coordinator",
-    name: "Siya",
-    phone: "7710390605",
-    bio: "Promotes activities among students, coordinates with other clubs and departments, invites participants, and builds external collaborations.",
+    label: "Outreach",
+    title: "PR & Outreach Team",
+    blurb: "Promotions across departments, invites and external collaborations.",
+    coordinator: { id: "siya", name: "Siya", role: "PR & Outreach Coordinator" },
+    members: placeholderMembers("pr", "Outreach Member"),
   },
   {
     id: "logistics",
-    role: "Logistics & Hospitality Coordinator",
-    name: "",
-    bio: "Arranges venues, seating, equipment, refreshments, guest reception, mementos, stationery and registration desks.",
-    // name intentionally empty — seat awaiting its coordinator
+    label: "Logistics",
+    title: "Logistics & Hospitality Team",
+    blurb: "Venues, seating, guests and welcome kits — the backbone of every event.",
+    coordinator: { id: "logistics-lead", name: "Open seat", role: "Logistics Coordinator", placeholder: true },
+    members: placeholderMembers("logistics", "Logistics Member"),
   },
   {
     id: "documentation",
-    role: "Documentation & Content Coordinator",
-    name: "Dronacharya",
-    phone: "8453047259",
-    bio: "Prepares event reports, notices, speaker introductions, press notes, attendance records, and meeting documentation.",
+    label: "Content",
+    title: "Documentation & Content Team",
+    blurb: "Event reports, notices, minutes and all the writing that matters.",
+    coordinator: { id: "dronacharya", name: "Dronacharya", role: "Documentation Coordinator" },
+    members: placeholderMembers("documentation", "Content Member"),
   },
   {
-    id: "event-planning",
-    role: "Event Planning Coordinator",
-    name: "Ritul Pruthi",
-    phone: "8295997337",
-    team: "Bhavishya Mamodiya",
-    bio: "Plans expert talks, workshops, hackathons and competitions, prepares timelines, schedules and execution plans.",
+    id: "events",
+    label: "Events",
+    title: "Event Planning Team",
+    blurb: "Expert talks, workshops and the timelines that take them to the stage.",
+    coordinator: { id: "ritul-pruthi", name: "Ritul Pruthi", role: "Event Planning Coordinator" },
+    members: placeholderMembers("events", "Events Member"),
   },
   {
     id: "marketing",
-    role: "Marketing Coordinator",
-    name: "Keshav Raina",
-    phone: "826499179",
-    bio: "Develops promotional strategies, identifies target audiences, plans campaigns and grows event participation and club visibility.",
+    label: "Marketing",
+    title: "Marketing Team",
+    blurb: "Campaigns, audience growth and club visibility across campus.",
+    coordinator: { id: "keshav-raina", name: "Keshav Raina", role: "Marketing Coordinator" },
+    members: placeholderMembers("marketing", "Marketing Member"),
   },
 ];
