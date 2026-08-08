@@ -134,7 +134,7 @@ export const team: Member[] = [
     rank: "12",
     name: "Keshav",
     role: "Marketing Coordinator",
-    deputy: "Keshav Raina",
+    deputy: "Keshav Painyuli",
     duties:
       "Develops promotional strategy, plans campaigns, and grows participation and club visibility across campus.",
   },
