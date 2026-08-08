@@ -61,25 +61,35 @@ export default function Navbar() {
         </a>
 
         <div className="hidden items-center gap-1 sm:flex">
-          {nav.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              aria-current={active === item.href ? "true" : undefined}
-              className={`relative rounded-md px-4 py-2 font-mono text-xs uppercase tracking-widest transition-colors ${
-                active === item.href
-                  ? "text-signal"
-                  : "text-muted hover:text-mist"
-              }`}
-            >
-              {item.label}
-              <span
-                className={`absolute inset-x-4 -bottom-px h-px bg-signal transition-opacity duration-300 ${
-                  active === item.href ? "opacity-100" : "opacity-0"
+          {nav.map((item) => {
+            const external = item.href.startsWith("http");
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noopener noreferrer" : undefined}
+                aria-current={!external && active === item.href ? "true" : undefined}
+                className={`relative rounded-md px-4 py-2 font-mono text-xs uppercase tracking-widest transition-colors ${
+                  !external && active === item.href
+                    ? "text-signal"
+                    : "text-muted hover:text-mist"
                 }`}
-              />
-            </a>
-          ))}
+              >
+                {item.label}
+                {external ? (
+                  <span className="ml-1.5 inline-block text-signal/70">↗</span>
+                ) : null}
+                {!external ? (
+                  <span
+                    className={`absolute inset-x-4 -bottom-px h-px bg-signal transition-opacity duration-300 ${
+                      active === item.href ? "opacity-100" : "opacity-0"
+                    }`}
+                  />
+                ) : null}
+              </a>
+            );
+          })}
         </div>
 
         <button
@@ -111,18 +121,30 @@ export default function Navbar() {
         }`}
       >
         <div className="space-y-1 px-5 py-4">
-          {nav.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={() => setOpen(false)}
-              className={`block rounded-md px-4 py-3 font-mono text-sm uppercase tracking-widest transition-colors ${
-                active === item.href ? "bg-panel text-signal" : "text-muted hover:text-mist"
-              }`}
-            >
-              {item.label}
-            </a>
-          ))}
+          {nav.map((item) => {
+            const external = item.href.startsWith("http");
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noopener noreferrer" : undefined}
+                onClick={() => setOpen(false)}
+                className={`flex items-center justify-between rounded-md px-4 py-3 font-mono text-sm uppercase tracking-widest transition-colors ${
+                  !external && active === item.href
+                    ? "bg-panel text-signal"
+                    : "text-muted hover:text-mist"
+                }`}
+              >
+                {item.label}
+                {external ? (
+                  <span className="text-signal/70" aria-hidden>
+                    ↗
+                  </span>
+                ) : null}
+              </a>
+            );
+          })}
         </div>
       </div>
     </header>
