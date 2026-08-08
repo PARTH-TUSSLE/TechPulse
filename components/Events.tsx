@@ -81,12 +81,12 @@ function EventCard({ event, index }: { event: Event; index: number }) {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-md bg-signal px-6 py-3 font-mono text-sm tracking-wider text-ink transition-transform hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-6px_rgba(39,255,158,0.45)]"
                 >
-                  Register
+                  Give Feedback
                   <span aria-hidden>→</span>
                 </a>
               ) : (
                 <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted">
-                  Registration opening soon
+                  Feedback form coming soon
                 </p>
               )}
             </div>
