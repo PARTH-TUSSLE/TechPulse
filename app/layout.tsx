@@ -5,7 +5,7 @@ import "./globals.css";
 const unbounded = Unbounded({
   variable: "--font-unbounded",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "600"],
   display: "swap",
 });
 
@@ -18,7 +18,7 @@ const spaceGrotesk = Space_Grotesk({
 const jetBrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "500"],
   display: "swap",
 });
 
