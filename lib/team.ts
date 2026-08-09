@@ -116,7 +116,7 @@ export const teams: Team[] = [
     label: "Marketing",
     title: "Marketing Team",
     blurb: "Campaigns, audience growth and club visibility across campus.",
-    coordinator: { id: "keshav-raina", name: "Keshav Raina", role: "Marketing Coordinator" },
+    coordinator: { id: "keshav-painyuli", name: "Keshav Painyuli", role: "Marketing Coordinator" },
     members: placeholderMembers("marketing", "Marketing Member"),
   },
 ];
