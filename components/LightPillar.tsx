@@ -64,15 +64,22 @@ const LightPillar: React.FC<LightPillarProps> = ({
     const height = container.clientHeight;
 
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    const isLowEndDevice = isMobile || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
+    const isLowEndDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
 
+    // All tiers keep highp precision — mediump collapses this raymarching
+    // shader on mobile GPUs (renders black). Performance is controlled by
+    // iteration count and pixel ratio instead, plus the adaptive scaler.
     let effectiveQuality = quality;
-    if (isLowEndDevice && quality === 'high') effectiveQuality = 'medium';
-    if (isMobile && quality !== 'low') effectiveQuality = 'low';
+    if (isLowEndDevice) {
+      if (effectiveQuality === 'high') effectiveQuality = 'medium';
+      else if (effectiveQuality === 'medium') effectiveQuality = 'low';
+    } else if (isMobile && effectiveQuality === 'high') {
+      effectiveQuality = 'medium';
+    }
 
     const qualitySettings = {
-      low: { iterations: 16, waveIterations: 1, pixelRatio: 0.5, precision: 'mediump', stepMultiplier: 1.5 },
-      medium: { iterations: 28, waveIterations: 2, pixelRatio: 0.6, precision: 'mediump', stepMultiplier: 1.2 },
+      low: { iterations: 16, waveIterations: 1, pixelRatio: 0.6, precision: 'highp', stepMultiplier: 1.5 },
+      medium: { iterations: 28, waveIterations: 2, pixelRatio: 0.75, precision: 'highp', stepMultiplier: 1.2 },
       high: {
         iterations: 48,
         waveIterations: 3,
@@ -95,7 +102,7 @@ const LightPillar: React.FC<LightPillarProps> = ({
       renderer = new THREE.WebGLRenderer({
         antialias: false,
         alpha: true,
-        powerPreference: effectiveQuality === 'low' ? 'low-power' : 'high-performance',
+        powerPreference: isMobile || effectiveQuality === 'low' ? 'low-power' : 'high-performance',
         precision: settings.precision,
         stencil: false,
         depth: false
@@ -332,7 +339,7 @@ const LightPillar: React.FC<LightPillarProps> = ({
 
     // Animation loop with fixed timestep
     let lastTime = performance.now();
-    const targetFPS = effectiveQuality === 'low' ? 30 : 60;
+    const targetFPS = isMobile || effectiveQuality === 'low' ? 30 : 60;
     const frameTime = 1000 / targetFPS;
     let renderSamples = 0;
     let renderTotal = 0;
@@ -511,8 +518,15 @@ const LightPillar: React.FC<LightPillarProps> = ({
       <div
         className={`w-full h-full absolute top-0 left-0 ${className}`}
         style={{ mixBlendMode }}
+        aria-hidden
       >
-        WebGL not supported
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(120% 70% at 50% 30%, rgba(45,255,157,0.16), transparent 60%), radial-gradient(90% 60% at 50% 100%, rgba(165,159,255,0.14), transparent 55%)",
+          }}
+        />
       </div>
     );
   }
