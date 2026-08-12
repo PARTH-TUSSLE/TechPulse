@@ -67,14 +67,13 @@ const LightPillar: React.FC<LightPillarProps> = ({
     const isLowEndDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
 
     // All tiers keep highp precision — mediump collapses this raymarching
-    // shader on mobile GPUs (renders black). Performance is controlled by
-    // iteration count and pixel ratio instead, plus the adaptive scaler.
+    // shader on mobile GPUs (renders black). Phones render the same quality
+    // as desktop; only genuinely low-end devices (≤4 cores) step down, and
+    // the adaptive scaler handles slow GPUs regardless.
     let effectiveQuality = quality;
     if (isLowEndDevice) {
       if (effectiveQuality === 'high') effectiveQuality = 'medium';
       else if (effectiveQuality === 'medium') effectiveQuality = 'low';
-    } else if (isMobile && effectiveQuality === 'high') {
-      effectiveQuality = 'medium';
     }
 
     const qualitySettings = {
@@ -339,7 +338,7 @@ const LightPillar: React.FC<LightPillarProps> = ({
 
     // Animation loop with fixed timestep
     let lastTime = performance.now();
-    const targetFPS = isMobile || effectiveQuality === 'low' ? 30 : 60;
+    const targetFPS = effectiveQuality === 'low' ? 30 : 60;
     const frameTime = 1000 / targetFPS;
     let renderSamples = 0;
     let renderTotal = 0;

@@ -36,7 +36,7 @@ export default function Backdrop() {
         <LightPillar
           topColor="#27ff9e"
           bottomColor="#a59fff"
-          intensity={1.1}
+          intensity={1.5}
           rotationSpeed={1.7}
           glowAmount={0.002}
           pillarWidth={4.5}
