@@ -67,17 +67,32 @@ const LightPillar: React.FC<LightPillarProps> = ({
     const isLowEndDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
 
     // All tiers keep highp precision — mediump collapses this raymarching
-    // shader on mobile GPUs (renders black). Phones render the same quality
-    // as desktop; only genuinely low-end devices (≤4 cores) step down, and
-    // the adaptive scaler handles slow GPUs regardless.
-    let effectiveQuality = quality;
-    if (isLowEndDevice) {
-      if (effectiveQuality === 'high') effectiveQuality = 'medium';
-      else if (effectiveQuality === 'medium') effectiveQuality = 'low';
-    }
+    // shader on mobile GPUs (renders black). Phones use a dedicated tier that
+    // stays close to the desktop look but light enough to run smoothly; the
+    // adaptive scaler handles slow GPUs regardless.
+    const QUALITY_RANK: Record<'low' | 'mobile' | 'medium' | 'high', number> = {
+      low: 0,
+      mobile: 1,
+      medium: 2,
+      high: 3,
+    };
+    const capQuality = (
+      level: 'low' | 'mobile' | 'medium' | 'high',
+      max: 'low' | 'mobile' | 'medium' | 'high'
+    ): 'low' | 'mobile' | 'medium' | 'high' => (QUALITY_RANK[level] > QUALITY_RANK[max] ? max : level);
+
+    const qualityCap = isLowEndDevice ? 'medium' : isMobile ? 'mobile' : 'high';
+    const effectiveQuality: 'low' | 'mobile' | 'medium' | 'high' = capQuality(quality, qualityCap);
 
     const qualitySettings = {
       low: { iterations: 16, waveIterations: 1, pixelRatio: 0.6, precision: 'highp', stepMultiplier: 1.5 },
+      mobile: {
+        iterations: 32,
+        waveIterations: 2,
+        pixelRatio: Math.min(window.devicePixelRatio, 1.0),
+        precision: 'highp',
+        stepMultiplier: 1.1
+      },
       medium: { iterations: 28, waveIterations: 2, pixelRatio: 0.75, precision: 'highp', stepMultiplier: 1.2 },
       high: {
         iterations: 48,
@@ -338,7 +353,7 @@ const LightPillar: React.FC<LightPillarProps> = ({
 
     // Animation loop with fixed timestep
     let lastTime = performance.now();
-    const targetFPS = effectiveQuality === 'low' ? 30 : 60;
+    const targetFPS = effectiveQuality === 'low' || effectiveQuality === 'mobile' ? 30 : 60;
     const frameTime = 1000 / targetFPS;
     let renderSamples = 0;
     let renderTotal = 0;

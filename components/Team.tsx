@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SectionHeader from "@/components/SectionHeader";
 import Reveal from "@/components/Reveal";
 import { leadership, teams, type Team, type TeamMember } from "@/lib/team";
@@ -152,16 +152,66 @@ function TeamCarousel({
   onToggle: (id: string) => void;
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
+  const indexRef = useRef(0);
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
 
-  const scrollByDir = (dir: 1 | -1) => {
-    trackRef.current?.scrollBy({
-      left: dir * Math.min(trackRef.current.clientWidth * 0.8, 320),
-      behavior: "smooth",
-    });
+  const goTo = (target: number) => {
+    const track = trackRef.current;
+    const first = track?.children[0] as HTMLElement | undefined;
+    if (!track || !first) return;
+    track.scrollTo({ left: target * (first.offsetWidth + 16), behavior: "smooth" });
+    indexRef.current = target;
+    setIndex(target);
   };
 
+  const prev = () => goTo((index - 1 + teams.length) % teams.length);
+  const next = () => goTo((index + 1) % teams.length);
+
+  // Keep the current slide in sync when the user swipes or scrolls manually.
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const syncIndex = () => {
+      const first = track.children[0] as HTMLElement | undefined;
+      if (!first) return;
+      const current = Math.min(
+        teams.length - 1,
+        Math.max(0, Math.round(track.scrollLeft / (first.offsetWidth + 16)))
+      );
+      indexRef.current = current;
+      setIndex(current);
+    };
+    track.addEventListener("scroll", syncIndex, { passive: true });
+    return () => track.removeEventListener("scroll", syncIndex);
+  }, []);
+
+  // Auto-advance through the teams on a loop.
+  useEffect(() => {
+    if (paused || expandedId !== null) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => {
+      if (document.hidden) return;
+      const target = (indexRef.current + 1) % teams.length;
+      const track = trackRef.current;
+      const first = track?.children[0] as HTMLElement | undefined;
+      if (track && first) {
+        track.scrollTo({ left: target * (first.offsetWidth + 16), behavior: "smooth" });
+        indexRef.current = target;
+        setIndex(target);
+      }
+    }, 1700);
+    return () => window.clearInterval(id);
+  }, [paused, expandedId, teams.length]);
+
   return (
-    <div className="relative md:hidden">
+    <div
+      className="relative md:hidden"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onTouchStart={() => setPaused(true)}
+      onTouchEnd={() => setPaused(false)}
+    >
       <div
         ref={trackRef}
         className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-5 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
@@ -180,7 +230,7 @@ function TeamCarousel({
       <div className="mt-4 flex items-center justify-center gap-3">
         <button
           type="button"
-          onClick={() => scrollByDir(-1)}
+          onClick={prev}
           aria-label="Previous team"
           className="flex h-9 w-9 items-center justify-center rounded-full border border-line bg-panel/60 text-muted transition-colors hover:border-signal/50 hover:text-signal"
         >
@@ -189,7 +239,7 @@ function TeamCarousel({
         <span className="h-px w-8 bg-line" aria-hidden />
         <button
           type="button"
-          onClick={() => scrollByDir(1)}
+          onClick={next}
           aria-label="Next team"
           className="flex h-9 w-9 items-center justify-center rounded-full border border-line bg-panel/60 text-muted transition-colors hover:border-signal/50 hover:text-signal"
         >
