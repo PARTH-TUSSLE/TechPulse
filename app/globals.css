@@ -1,107 +1,77 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-ink: #07070f;
-  --color-ink-2: #0b0b16;
-  --color-panel: #101020;
-  --color-signal: #27ff9e;
-  --color-lavender: #a59fff;
-  --color-mist: #e9eaf6;
-  --color-muted: #9293b6;
-  --color-line: rgba(158, 158, 194, 0.16);
+  --color-ink: #090a0c;
+  --color-surface: #111317;
+  --color-surface-hover: #171a20;
+  --color-surface-border: #1f2228;
+  --color-accent: #b497cf;
+  --color-mist: #f4f5f7;
+  --color-muted: #8e95a2;
+  --color-faint: #545b67;
 
-  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-unbounded), var(--font-space-grotesk), sans-serif;
-  --font-mono: var(--font-jetbrains-mono), ui-monospace, "SFMono-Regular", monospace;
+  --font-sans: var(--font-space-grotesk), "Space Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-serif), Georgia, serif;
+  --font-mono: var(--font-mono), ui-monospace, "SFMono-Regular", monospace;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5.5rem;
+  scroll-padding-top: 4.5rem;
+}
+
+body,
+h1, h2, h3, h4, h5, h6,
+button, input, select, textarea {
+  font-family: var(--font-space-grotesk), "Space Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 body {
-  background-color: var(--color-ink);
-  color: var(--color-mist);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+  background-color: #090a0c;
+  color: #f4f5f7;
   overflow-x: clip;
 }
 
+/* Hide scrollbar for clean horizontal carousel & pill navigation */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Touch momentum scrolling */
+.scroll-touch {
+  -webkit-overflow-scrolling: touch;
+}
+
 ::selection {
-  background-color: rgba(39, 255, 158, 0.28);
-  color: #eafff5;
+  background-color: rgba(180, 151, 207, 0.25);
+  color: #ffffff;
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-signal);
+  outline: 2px solid #b497cf;
   outline-offset: 3px;
   border-radius: 2px;
 }
 
-/* ---- scroll reveal ---- */
+/* Scroll reveal animation */
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(12px);
   transition:
-    opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
-    transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
+
 .reveal.is-inview {
   opacity: 1;
-  transform: none;
-}
-
-/* ---- signature beam pulse ---- */
-@keyframes beamPulse {
-  0% {
-    transform: translateY(-15%);
-    opacity: 0;
-  }
-  20% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(115%);
-    opacity: 0;
-  }
-}
-
-@keyframes blink {
-  0%,
-  49% {
-    opacity: 1;
-  }
-  50%,
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes scrollDot {
-  0% {
-    transform: translateY(0);
-    opacity: 0;
-  }
-  25% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(14px);
-    opacity: 0;
-  }
-}
-
-/* ---- wordmark gradient ---- */
-.text-pulse-gradient {
-  background-image: linear-gradient(100deg, var(--color-signal) 0%, var(--color-lavender) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  transform: translateY(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -112,7 +82,6 @@ body {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
-    animation: none !important;
   }
   *,
   *::before,

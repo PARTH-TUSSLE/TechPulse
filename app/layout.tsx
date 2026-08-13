@@ -1,22 +1,24 @@
 import type { Metadata } from "next";
-import { Unbounded, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-
-const unbounded = Unbounded({
-  variable: "--font-unbounded",
-  subsets: ["latin"],
-  weight: ["400", "600"],
-  display: "swap",
-});
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+});
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
 const jetBrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
+  variable: "--font-mono",
   subsets: ["latin"],
   weight: ["400", "500"],
   display: "swap",
@@ -25,7 +27,7 @@ const jetBrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "TechPulse — CCE (CSE-Block 3) Activity Club",
   description:
-    "TechPulse is the student activity club of the Department of CSE, CCE, CGC University, Mohali. Workshops, expert talks and a community built to give students betterment, exposure and guidance.",
+    "TechPulse is the student activity club of the Department of CSE, CCE, CGC University, Mohali. Workshops, expert talks and a community built for betterment, exposure and guidance.",
   keywords: [
     "TechPulse",
     "CCE",
@@ -38,19 +40,21 @@ export const metadata: Metadata = {
   openGraph: {
     title: "TechPulse — CCE (CSE-Block 3) Activity Club",
     description:
-      "The girl-powered coding community at CGC University that turns curiosity into careers.",
+      "The student technology community at CGC University turning curiosity into engineering excellence.",
     type: "website",
     siteName: "TechPulse",
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${unbounded.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable} h-full antialiased`}
+      className={`${spaceGrotesk.variable} ${instrumentSerif.variable} ${jetBrainsMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full font-sans bg-[#090a0c] text-[#f4f5f7] selection:bg-[#b497cf]/25 selection:text-[#ffffff]">
+        {children}
+      </body>
     </html>
   );
 }
