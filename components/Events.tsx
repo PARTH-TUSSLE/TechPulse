@@ -2,97 +2,96 @@ import SectionHeader from "@/components/SectionHeader";
 import Reveal from "@/components/Reveal";
 import { events, type Event } from "@/lib/events";
 
-function EventCard({ event, index }: { event: Event; index: number }) {
+function EventItem({ event, index }: { event: Event; index: number }) {
   return (
-    <Reveal delay={index * 140} as="article">
-      <div className="group relative overflow-hidden rounded-xl border border-line bg-panel/40 transition-colors duration-300 hover:border-signal/40">
-        <div className="grid grid-cols-1 md:grid-cols-[auto_1fr]">
-          <div className="flex flex-row items-center gap-4 border-b border-line p-6 md:flex-col md:items-start md:justify-between md:border-b-0 md:border-r md:p-8">
-            <div className="flex items-end gap-2">
-              <span className="font-display text-6xl font-semibold leading-none text-mist">
-                {event.day}
-              </span>
-              <span className="mb-1 font-mono text-sm uppercase tracking-[0.2em] text-signal">
-                {event.month}
-              </span>
-            </div>
-            <div className="flex flex-col gap-1 md:mt-10">
-              <span className="font-mono text-[0.6rem] uppercase tracking-[0.2em] text-muted">
+    <Reveal delay={index * 80}>
+      <article className="border border-[#1f2228] bg-[#111317] p-5 sm:p-6 transition-colors hover:border-[#2b2f38]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          {/* Left Date Column */}
+          <div className="lg:col-span-3 border-b lg:border-b-0 lg:border-r border-[#16181d] pb-4 lg:pb-0 lg:pr-6 flex flex-row lg:flex-col justify-between items-start">
+            <div>
+              <span className="text-[10px] font-mono uppercase tracking-widest text-[#b497cf] block mb-1 font-semibold">
                 {event.type}
               </span>
-              <span className="font-mono text-[0.6rem] uppercase tracking-[0.2em] text-muted">
-                Aug 2026
+              <div className="flex items-baseline gap-2">
+                <span className="font-sans text-3xl sm:text-4xl font-bold tracking-tight text-[#b497cf]">
+                  {event.day}
+                </span>
+                <div className="flex flex-col text-[10px] font-mono uppercase text-[#8e95a2]">
+                  <span className="font-semibold text-[#f4f5f7]">{event.month}</span>
+                  <span className="text-[#b497cf] font-bold text-[9px]">DATE TBD</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-3 hidden lg:block text-[10px]">
+              <span className="font-mono text-[#8e95a2] uppercase tracking-wider block">
+                Audience:
+              </span>
+              <span className="text-[#8e95a2] block mt-0.5 leading-snug">
+                {event.audience}
               </span>
             </div>
           </div>
 
-          <div className="p-6 sm:p-8">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <span className="inline-flex items-center gap-2 rounded border border-signal/30 bg-signal/5 px-3 py-1 font-mono text-[0.62rem] uppercase tracking-[0.2em] text-signal">
-                <span className="h-1.5 w-1.5 rounded-full bg-signal" aria-hidden />
-                {event.type}
-              </span>
-              <span className="font-mono text-[0.62rem] uppercase tracking-[0.18em] text-muted">
-                {event.audience}
-              </span>
+          {/* Right Detail Column */}
+          <div className="lg:col-span-9 space-y-4">
+            <div>
+              <h3 className="text-xl sm:text-2xl font-bold text-[#f4f5f7] tracking-tight leading-snug">
+                {event.title}
+              </h3>
+              <p className="mt-1.5 text-xs sm:text-sm leading-relaxed text-[#8e95a2]">
+                {event.why}
+              </p>
             </div>
 
-            <h3 className="mt-5 max-w-2xl font-display text-2xl leading-snug tracking-tight text-mist sm:text-3xl">
-              {event.title}
-            </h3>
-
-            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
-              {event.why}
-            </p>
-
-            <dl className="mt-6 grid grid-cols-1 gap-x-8 gap-y-3 border-t border-line pt-5 sm:grid-cols-2">
+            {/* Spec Details Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 border-t border-b border-[#16181d] py-3 text-[11px] font-mono">
               <div>
-                <dt className="font-mono text-[0.6rem] uppercase tracking-[0.2em] text-muted">Time</dt>
-                <dd className="mt-1 font-mono text-xs tracking-wider text-mist">{event.time}</dd>
+                <span className="text-[#8e95a2] uppercase tracking-wider block text-[9px]">Speaker:</span>
+                <span className="text-[#f4f5f7] font-semibold mt-0.5 block leading-tight">{event.speaker}</span>
               </div>
               <div>
-                <dt className="font-mono text-[0.6rem] uppercase tracking-[0.2em] text-muted">Venue</dt>
-                <dd className="mt-1 font-mono text-xs tracking-wider text-mist">{event.venue}</dd>
+                <span className="text-[#8e95a2] uppercase tracking-wider block text-[9px]">Time:</span>
+                <span className="text-[#b497cf] font-semibold mt-0.5 block leading-tight">{event.time}</span>
               </div>
-              <div className="sm:col-span-2">
-                <dt className="font-mono text-[0.6rem] uppercase tracking-[0.2em] text-muted">Speaker</dt>
-                <dd className="mt-1 font-mono text-xs leading-relaxed tracking-wider text-lavender">
-                  {event.speaker}
-                </dd>
+              <div>
+                <span className="text-[#8e95a2] uppercase tracking-wider block text-[9px]">Venue:</span>
+                <span className="text-[#b497cf] font-semibold mt-0.5 block leading-tight">{event.venue}</span>
               </div>
-            </dl>
+            </div>
 
-            <ul className="mt-6 flex flex-wrap gap-2" aria-label={`${event.title} highlights`}>
-              {event.highlights.map((h) => (
-                <li
-                  key={h}
-                  className="rounded border border-line px-3 py-1.5 font-mono text-[0.62rem] tracking-wide text-muted"
-                >
-                  {h}
-                </li>
-              ))}
-            </ul>
+            {/* Highlights Tags & CTA */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-1">
+              <div className="flex flex-wrap gap-1.5">
+                {event.highlights.map((h) => (
+                  <span
+                    key={h}
+                    className="border border-[#1f2228] bg-[#090a0c] px-2.5 py-0.5 text-[10px] font-mono text-[#8e95a2]"
+                  >
+                    {h}
+                  </span>
+                ))}
+              </div>
 
-            <div className="mt-8">
               {event.register ? (
                 <a
                   href={event.register}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-md bg-signal px-6 py-3 font-mono text-sm tracking-wider text-ink transition-transform hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-6px_rgba(39,255,158,0.45)]"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 bg-[#f4f5f7] px-4 py-2 text-[10px] font-semibold uppercase tracking-wider text-[#090a0c] transition-colors hover:bg-[#ffffff] active:scale-[0.98]"
                 >
-                  Give Feedback
-                  <span aria-hidden>→</span>
+                  Feedback Form &rarr;
                 </a>
               ) : (
-                <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted">
-                  Feedback form coming soon
-                </p>
+                <span className="text-[10px] font-mono text-[#8e95a2] uppercase self-end sm:self-auto">
+                  Form opening soon
+                </span>
               )}
             </div>
           </div>
         </div>
-      </div>
+      </article>
     </Reveal>
   );
 }
@@ -101,18 +100,18 @@ export default function Events() {
   return (
     <section
       id="events"
-      className="relative mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-32"
+      className="relative max-w-5xl mx-auto px-5 py-12 lg:px-6 border-t border-[#1f2228]"
       aria-labelledby="events-title"
     >
       <SectionHeader
-        path="/roadmap"
-        title="Upcoming events"
-        lede="Two open sessions this August — both funded under the CSE department and led by external experts. Pick one, or come to both."
+        category="Sessions & Agenda"
+        title="Upcoming Workshops"
+        lede="Expert sessions and hands-on labs hosted in Block 3."
       />
 
-      <div className="space-y-6">
+      <div className="mt-8 space-y-5">
         {events.map((event, i) => (
-          <EventCard key={event.id} event={event} index={i} />
+          <EventItem key={event.id} event={event} index={i} />
         ))}
       </div>
     </section>
