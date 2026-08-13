@@ -130,14 +130,6 @@ export const team: Member[] = [
     duties:
       "Plans expert talks, workshops, hackathons and competitions; owns timelines, schedules, task lists and execution plans.",
   },
-  {
-    rank: "12",
-    name: "Keshav",
-    role: "Marketing Coordinator",
-    deputy: "Keshav Painyuli",
-    duties:
-      "Develops promotional strategy, plans campaigns, and grows participation and club visibility across campus.",
-  },
 ];
 
 export const events: ClubEvent[] = [

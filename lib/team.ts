@@ -49,8 +49,8 @@ export const teams: Team[] = [
   },
   {
     id: "social",
-    label: "Social Media",
-    title: "Social Media Team",
+    label: "Social Media & Marketing",
+    title: "Social Media & Marketing Team",
     blurb: "Reels, posts, captions and everything between the club and its audience.",
     coordinator: { id: "aditya-kumar", name: "Aditya Kumar", role: "Social Media Coordinator" },
     members: placeholderMembers("social", "Social Media Member"),
@@ -110,13 +110,5 @@ export const teams: Team[] = [
     blurb: "Expert talks, workshops and the timelines that take them to the stage.",
     coordinator: { id: "ritul-pruthi", name: "Ritul Pruthi", role: "Event Planning Coordinator" },
     members: placeholderMembers("events", "Events Member"),
-  },
-  {
-    id: "marketing",
-    label: "Marketing",
-    title: "Marketing Team",
-    blurb: "Campaigns, audience growth and club visibility across campus.",
-    coordinator: { id: "keshav-painyuli", name: "Keshav Painyuli", role: "Marketing Coordinator" },
-    members: placeholderMembers("marketing", "Marketing Member"),
   },
 ];
