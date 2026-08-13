@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { nav } from "@/lib/club";
+import { nav, joinUrl, club, developer } from "@/lib/club";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -9,14 +9,14 @@ export default function Navbar() {
   const [active, setActive] = useState("#home");
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 15);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
-    const sections = ["home", "team", "events"]
+    const sections = ["home", "purpose", "team", "events"]
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => Boolean(el));
 
@@ -26,7 +26,7 @@ export default function Navbar() {
           if (entry.isIntersecting) setActive(`#${entry.target.id}`);
         });
       },
-      { rootMargin: "-40% 0px -55% 0px" }
+      { rootMargin: "-30% 0px -60% 0px" }
     );
     sections.forEach((s) => observer.observe(s));
     return () => observer.disconnect();
@@ -41,110 +41,152 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled || open
-          ? "border-b border-line bg-ink/85 backdrop-blur-md"
-          : "border-b border-transparent bg-transparent"
+          ? "border-b border-[#1f2228] bg-[#090a0c]/95 backdrop-blur-xl py-3 shadow-2xl shadow-black/40"
+          : "border-b border-transparent bg-transparent py-4"
       }`}
     >
-      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8" aria-label="Primary">
+      <nav className="mx-auto flex max-w-5xl items-center justify-between px-5 lg:px-6" aria-label="Main Navigation">
+        {/* Brand identity */}
         <a href="#home" className="group flex items-center gap-2.5" onClick={() => setOpen(false)}>
-          <span className="flex h-8 w-8 items-center justify-center rounded-md border border-line bg-panel/60 font-display text-sm font-semibold text-signal transition-colors group-hover:border-signal/60">
+          <span className="flex h-7 w-7 items-center justify-center border border-[#2b2f38] bg-[#111317] text-xs font-bold tracking-wider text-[#b497cf] transition-all group-hover:border-[#b497cf] group-hover:shadow-md group-hover:shadow-[#b497cf]/20">
             TP
           </span>
-          <span className="flex flex-col leading-none">
-            <span className="font-display text-sm font-semibold tracking-tight text-mist">TechPulse</span>
-            <span className="font-mono text-[0.6rem] uppercase tracking-[0.18em] text-muted">
-              CSE · Block 3
+          <div className="flex flex-col">
+            <span className="text-sm font-bold tracking-tight text-[#f4f5f7] group-hover:text-[#ffffff] transition-colors">
+              TechPulse
             </span>
-          </span>
+            <span className="text-[9px] font-mono tracking-wider text-[#8e95a2] uppercase">
+              Dept. of CSE &middot; Block 3
+            </span>
+          </div>
         </a>
 
-        <div className="hidden items-center gap-1 sm:flex">
+        {/* Desktop Navigation */}
+        <div className="hidden items-center gap-6 sm:flex">
           {nav.map((item) => {
-            const external = item.href.startsWith("http");
+            const isExternal = item.href.startsWith("http");
+            const isActive = !isExternal && active === item.href;
             return (
               <a
                 key={item.href}
                 href={item.href}
-                target={external ? "_blank" : undefined}
-                rel={external ? "noopener noreferrer" : undefined}
-                aria-current={!external && active === item.href ? "true" : undefined}
-                className={`relative rounded-md px-4 py-2 font-mono text-xs uppercase tracking-widest transition-colors ${
-                  !external && active === item.href
-                    ? "text-signal"
-                    : "text-muted hover:text-mist"
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noopener noreferrer" : undefined}
+                aria-current={isActive ? "page" : undefined}
+                className={`relative text-[11px] font-mono tracking-wider uppercase transition-all py-1 ${
+                  isActive
+                    ? "font-semibold text-[#f4f5f7]"
+                    : "text-[#8e95a2] hover:text-[#f4f5f7]"
                 }`}
               >
-                {item.label}
-                {external ? (
-                  <span className="ml-1.5 inline-block text-signal/70">↗</span>
-                ) : null}
-                {!external ? (
-                  <span
-                    className={`absolute inset-x-4 -bottom-px h-px bg-signal transition-opacity duration-300 ${
-                      active === item.href ? "opacity-100" : "opacity-0"
-                    }`}
-                  />
-                ) : null}
+                <span className="flex items-center gap-1.5">
+                  {isActive && <span className="h-1.5 w-1.5 rounded-full bg-[#b497cf]" />}
+                  {item.label}
+                  {isExternal && <span className="text-[9px] text-[#8e95a2]">↗</span>}
+                </span>
               </a>
             );
           })}
         </div>
 
+        {/* Mobile menu trigger */}
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-label={open ? "Close menu" : "Open menu"}
-          className="flex h-10 w-10 items-center justify-center rounded-md border border-line bg-panel text-mist transition-colors hover:text-signal sm:hidden"
+          className={`flex h-9 w-9 items-center justify-center border transition-all active:scale-95 sm:hidden ${
+            open
+              ? "border-[#b497cf] bg-[#111317] text-[#b497cf] shadow-lg shadow-[#b497cf]/20"
+              : "border-[#2b2f38] bg-[#111317] text-[#f4f5f7] hover:border-[#b497cf]"
+          }`}
         >
-          <span className="relative flex h-3.5 w-5 flex-col justify-between">
+          <span className="relative flex h-3.5 w-4 flex-col justify-between">
             <span
-              className={`h-px w-full bg-current transition-transform duration-300 ${
-                open ? "translate-y-[7px] rotate-45" : ""
+              className={`h-0.5 w-full bg-current transition-transform duration-300 origin-center ${
+                open ? "translate-y-[6px] rotate-45" : ""
               }`}
             />
-            <span className={`h-px w-full bg-current transition-opacity ${open ? "opacity-0" : ""}`} />
+            <span className={`h-0.5 w-full bg-current transition-opacity duration-200 ${open ? "opacity-0" : ""}`} />
             <span
-              className={`h-px w-full bg-current transition-transform duration-300 ${
-                open ? "-translate-y-[7px] -rotate-45" : ""
+              className={`h-0.5 w-full bg-current transition-transform duration-300 origin-center ${
+                open ? "-translate-y-[6px] -rotate-45" : ""
               }`}
             />
           </span>
         </button>
       </nav>
 
+      {/* WOW Mobile Navigation Overlay */}
       <div
-        className={`overflow-hidden border-t border-line bg-ink transition-[max-height] duration-300 ease-out sm:hidden ${
-          open ? "max-h-64" : "max-h-0"
+        className={`overflow-hidden border-t border-[#1f2228] bg-[#090a0c]/98 backdrop-blur-2xl transition-all duration-300 ease-out sm:hidden ${
+          open ? "max-h-[85vh] opacity-100 py-4" : "max-h-0 opacity-0 pointer-events-none"
         }`}
       >
-        <div className="space-y-1 px-5 py-4">
-          {nav.map((item) => {
-            const external = item.href.startsWith("http");
-            return (
-              <a
-                key={item.href}
-                href={item.href}
-                target={external ? "_blank" : undefined}
-                rel={external ? "noopener noreferrer" : undefined}
-                onClick={() => setOpen(false)}
-                className={`flex items-center justify-between rounded-md px-4 py-3 font-mono text-sm uppercase tracking-widest transition-colors ${
-                  !external && active === item.href
-                    ? "bg-panel text-signal"
-                    : "text-muted hover:text-mist"
-                }`}
-              >
-                {item.label}
-                {external ? (
-                  <span className="text-signal/70" aria-hidden>
-                    ↗
+        <div className="flex flex-col space-y-4 px-5">
+          {/* Header Status Bar */}
+          <div className="flex items-center justify-between border-b border-[#16181d] pb-3 text-[10px] font-mono tracking-widest text-[#8e95a2] uppercase">
+            <span className="flex items-center gap-2 text-[#b497cf]">
+              <span className="h-2 w-2 rounded-full bg-[#b497cf] animate-pulse" />
+              NAVIGATION
+            </span>
+            <span>{club.school}</span>
+          </div>
+
+          {/* Navigation Links */}
+          <div className="flex flex-col space-y-2">
+            {nav.map((item, idx) => {
+              const isExternal = item.href.startsWith("http");
+              const isActive = !isExternal && active === item.href;
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noopener noreferrer" : undefined}
+                  onClick={() => setOpen(false)}
+                  className={`group flex items-center justify-between p-3 transition-all rounded-none border border-transparent active:scale-[0.98] ${
+                    isActive
+                      ? "bg-[#111317] border-[#b497cf]/60 border-l-4 border-l-[#b497cf] text-[#f4f5f7] shadow-md shadow-[#b497cf]/10"
+                      : "bg-[#090a0c] border-[#16181d] text-[#8e95a2] hover:text-[#f4f5f7] hover:border-[#2b2f38]"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono text-xs text-[#b497cf]">
+                      0{idx + 1}
+                    </span>
+                    <span className="font-sans text-base font-bold tracking-tight group-hover:translate-x-1 transition-transform">
+                      {item.label}
+                    </span>
+                  </div>
+
+                  <span className="font-mono text-xs">
+                    {isExternal ? "↗" : isActive ? "●" : "→"}
                   </span>
-                ) : null}
-              </a>
-            );
-          })}
+                </a>
+              );
+            })}
+          </div>
+
+          {/* Bottom Action Footer inside Drawer */}
+          <div className="mt-2 pt-4 border-t border-[#16181d] space-y-3">
+            <a
+              href={joinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setOpen(false)}
+              className="w-full inline-flex items-center justify-center gap-2 bg-[#b497cf] py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#090a0c] shadow-lg shadow-[#b497cf]/20 transition-all hover:bg-[#c4a5e6] active:scale-[0.98]"
+            >
+              <span>Apply for Slot</span>
+              <span>&rarr;</span>
+            </a>
+
+            <div className="flex items-center justify-center text-[10px] font-mono text-[#8e95a2] pt-1">
+              <span>EST. {club.est} &middot; {club.college}</span>
+            </div>
+          </div>
         </div>
       </div>
     </header>

@@ -1,67 +1,83 @@
 import Reveal from "@/components/Reveal";
 import { joinUrl } from "@/lib/club";
 
-const perks = [
+const advantages = [
   {
-    title: "Build",
-    body: "Ship workshops, events and projects that actually happen on campus.",
+    step: "01",
+    title: "Engineering & Labs",
+    body: "Build real tools, manage lab gear, and run bootcamps alongside senior leads.",
   },
   {
-    title: "Learn",
-    body: "Get first access to expert talks, sessions and hands-on labs.",
+    step: "02",
+    title: "Leadership & Ops",
+    body: "Plan event timelines, oversee logistics, and coordinate with department faculty.",
   },
   {
-    title: "Lead",
-    body: "Pick a role you love — from technical to creative to logistics.",
+    step: "03",
+    title: "Mentorship & Network",
+    body: "Priority access to expert sessions, career guidance, and project collaboration.",
   },
 ];
 
 export default function JoinUs() {
   return (
-    <section id="join" className="relative mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-32">
+    <section
+      id="join"
+      className="relative max-w-5xl mx-auto px-5 py-12 lg:px-6 border-t border-[#1f2228]"
+    >
       <Reveal>
-        <div className="relative overflow-hidden rounded-2xl border border-line bg-panel/40 px-6 py-12 text-center sm:px-12 sm:py-16">
-          <span
-            className="pointer-events-none absolute -top-24 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full bg-signal/10 blur-3xl"
-            aria-hidden
-          />
-          <p className="font-mono text-xs uppercase tracking-[0.25em] text-signal sm:text-sm">
-            <span className="text-muted">~/techpulse</span>
-            <span className="text-lavender">/join</span>
-          </p>
-          <h2 className="mx-auto mt-4 max-w-2xl font-display text-3xl leading-[1.05] tracking-tight text-mist sm:text-5xl">
-            Ready to join the pulse?
-          </h2>
-          <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-            We're building the club team for the coming year — coordinators, members and
-            volunteers across every team. Pick your lane and jump in.
-          </p>
+        <div className="border border-[#1f2228] bg-[#111317] p-6 sm:p-10">
+          <div className="max-w-2xl">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[#b497cf] block mb-1.5">
+              Membership & Applications
+            </span>
+            <h2 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-[#f4f5f7] leading-tight">
+              Ready to take part in TechPulse?
+            </h2>
+            <p className="mt-2 text-xs sm:text-sm text-[#8e95a2] leading-relaxed">
+              We welcome CSE students across all semesters. Join our technical, design, media, or event operations teams.
+            </p>
+          </div>
 
-          <a
-            href={joinUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-8 inline-flex items-center gap-2 rounded-md bg-signal px-8 py-3.5 font-mono text-sm tracking-wider text-ink transition-transform hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-6px_rgba(39,255,158,0.45)]"
-          >
-            Fill the Join Us form
-            <span aria-hidden>→</span>
-          </a>
+          {/* 3 Pillars Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 pt-6 border-t border-[#16181d]">
+            {advantages.map((adv) => (
+              <div key={adv.step} className="space-y-1">
+                <span className="text-[10px] font-mono text-[#b497cf] uppercase">
+                  {adv.step}
+                </span>
+                <h3 className="text-sm font-bold text-[#f4f5f7]">
+                  {adv.title}
+                </h3>
+                <p className="text-xs text-[#8e95a2] leading-relaxed">
+                  {adv.body}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Direct CTA Bar */}
+          <div className="mt-8 pt-6 border-t border-[#16181d] flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+              <span className="text-[10px] font-mono uppercase text-[#8e95a2] tracking-wider block">
+                Application Status: OPEN
+              </span>
+              <p className="text-xs font-semibold text-[#f4f5f7] mt-0.5">
+                Fill out the official student join form
+              </p>
+            </div>
+
+            <a
+              href={joinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto inline-flex items-center justify-center bg-[#b497cf] px-6 py-2.5 text-xs font-semibold uppercase tracking-wider text-[#090a0c] transition-all hover:bg-[#c4a5e6]"
+            >
+              Open Application Form &rarr;
+            </a>
+          </div>
         </div>
       </Reveal>
-
-      <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-3">
-        {perks.map((perk, i) => (
-          <Reveal key={perk.title} delay={i * 120} className="bg-ink">
-            <div className="flex h-full flex-col p-7 transition-colors duration-300 hover:bg-panel/60 sm:p-9">
-              <span className="self-start rounded border border-signal/30 bg-signal/5 px-2.5 py-1 font-mono text-[0.6rem] uppercase tracking-[0.25em] text-signal">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 className="mt-8 font-display text-2xl tracking-tight text-mist">{perk.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">{perk.body}</p>
-            </div>
-          </Reveal>
-        ))}
-      </div>
     </section>
   );
 }

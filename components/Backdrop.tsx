@@ -1,7 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import LightPillar from "./LightPillar";
+import PixelBlast from "./PixelBlast";
 
 function subscribeReducedMotion(callback: () => void) {
   const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -14,44 +14,45 @@ function getReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-/**
- * Fixed, full-viewport visual environment.
- * Renders the signature light pillar on capable devices, and a static
- * equivalent when the user prefers reduced motion.
- */
 export default function Backdrop() {
   const reduceMotion = useSyncExternalStore(subscribeReducedMotion, getReducedMotion, () => false);
 
   return (
-    <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden>
+    <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[#090a0c]" aria-hidden>
       {reduceMotion ? (
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(120% 70% at 50% 30%, rgba(45,255,157,0.16), transparent 60%), radial-gradient(90% 60% at 50% 100%, rgba(165,159,255,0.14), transparent 55%)",
+              "radial-gradient(80% 50% at 50% 0%, rgba(180, 151, 207, 0.15), transparent 70%)",
           }}
         />
       ) : (
-        <LightPillar
-          topColor="#27ff9e"
-          bottomColor="#a59fff"
-          intensity={1.5}
-          rotationSpeed={1.7}
-          glowAmount={0.002}
-          pillarWidth={4.5}
-          pillarHeight={0.5}
-          noiseIntensity={0.5}
-          pillarRotation={25}
-          interactive={false}
-          mixBlendMode="normal"
-          quality="high"
-        />
+        <div className="absolute inset-0 opacity-80 pointer-events-auto">
+          <PixelBlast
+            variant="square"
+            pixelSize={2}
+            color="#ab5ff3"
+            patternScale={2}
+            patternDensity={2}
+            pixelSizeJitter={0}
+            // enableRipples
+            rippleSpeed={0.4}
+            rippleThickness={0.12}
+            rippleIntensityScale={1.5}
+            liquid={false}
+            liquidStrength={0.12}
+            liquidRadius={1.2}
+            liquidWobbleSpeed={5}
+            speed={0.4}
+            edgeFade={0.11}
+            transparent
+          />
+        </div>
       )}
 
-      {/* Readability scrims */}
-      <div className="absolute inset-0 bg-gradient-to-b from-ink/80 via-transparent to-ink/90" />
-      <div className="absolute inset-0 [background:radial-gradient(120%_80%_at_50%_0%,transparent_40%,rgba(7,7,12,0.55)_100%)]" />
+      {/* Subtle overlay scrim for text contrast */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#090a0c]/40 via-[#090a0c]/70 to-[#090a0c]" />
     </div>
   );
 }

@@ -1,89 +1,93 @@
 import { club, developer } from "@/lib/club";
 
 const socialLinks = [
-  { label: "Github", href: developer.socials.github },
-  { label: "X", href: developer.socials.x },
+  { label: "GitHub", href: developer.socials.github },
+  { label: "X (Twitter)", href: developer.socials.x },
   { label: "LinkedIn", href: developer.socials.linkedin },
 ];
 
 export default function Footer() {
   return (
-    <footer className="relative border-t border-line bg-ink-2">
-      <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8">
-        <div className="flex flex-col justify-between gap-10 md:flex-row md:items-start">
-          <div className="max-w-sm">
+    <footer className="relative border-t border-[#1f2228] bg-[#090a0c]">
+      <div className="mx-auto max-w-5xl px-5 py-10 lg:px-6">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+          {/* Brand Col */}
+          <div className="md:col-span-5 space-y-3">
             <div className="flex items-center gap-2.5">
-              <span className="flex h-8 w-8 items-center justify-center rounded-md border border-line bg-panel font-display text-sm font-semibold text-signal">
+              <span className="flex h-6 w-6 items-center justify-center border border-[#2b2f38] bg-[#111317] text-[10px] font-bold text-[#b497cf]">
                 TP
               </span>
-              <span className="font-display text-sm font-semibold tracking-tight text-mist">
+              <span className="font-sans text-sm font-bold tracking-tight text-[#f4f5f7]">
                 TechPulse
               </span>
             </div>
-            <p className="mt-4 text-sm leading-relaxed text-muted">
-              The student tech club of {club.school}, working under {club.college}, {club.location}.
-              Built by students, for students — from betterment to the first job.
+            <p className="text-xs text-[#8e95a2] leading-relaxed max-w-xs">
+              Student activity club of the Department of Computer Science & Engineering, {club.college}, {club.location}.
             </p>
           </div>
 
-          <nav className="flex flex-col gap-2" aria-label="Footer">
-            <span className="font-mono text-[0.62rem] uppercase tracking-[0.25em] text-muted">
-              Navigate
+          {/* Quick Nav Col */}
+          <div className="md:col-span-3 space-y-2">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[#8e95a2] block">
+              Navigation
             </span>
-            <a href="#home" className="font-mono text-sm text-muted transition-colors hover:text-signal">
-              Home
-            </a>
-            <a href="#team" className="font-mono text-sm text-muted transition-colors hover:text-signal">
-              Team
-            </a>
-            <a href="#events" className="font-mono text-sm text-muted transition-colors hover:text-signal">
-              Events
-            </a>
-          </nav>
-
-          <div className="flex flex-col gap-3">
-            <span className="font-mono text-[0.62rem] uppercase tracking-[0.25em] text-muted">
-              Reach us
-            </span>
-            <p className="font-mono text-sm leading-relaxed text-muted">
-              {club.school}
-              <br />
-              {club.college}, {club.location}
-            </p>
+            <ul className="space-y-1 text-xs font-mono uppercase">
+              <li>
+                <a href="#home" className="text-[#8e95a2] hover:text-[#f4f5f7] transition-colors">
+                  01 / Home
+                </a>
+              </li>
+              <li>
+                <a href="#purpose" className="text-[#8e95a2] hover:text-[#f4f5f7] transition-colors">
+                  02 / Philosophy
+                </a>
+              </li>
+              <li>
+                <a href="#team" className="text-[#8e95a2] hover:text-[#f4f5f7] transition-colors">
+                  03 / Team Roster
+                </a>
+              </li>
+              <li>
+                <a href="#events" className="text-[#8e95a2] hover:text-[#f4f5f7] transition-colors">
+                  04 / Events
+                </a>
+              </li>
+            </ul>
           </div>
 
-          <div className="flex flex-col gap-3">
-            <span className="font-mono text-[0.62rem] uppercase tracking-[0.25em] text-muted">
-              Developed &amp; designed
+          {/* Developer Col */}
+          <div className="md:col-span-4 space-y-2">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[#8e95a2] block">
+              Designed & Developed By
             </span>
-            <p className="font-display text-sm font-semibold tracking-tight text-mist">
+            <p className="text-xs font-semibold text-[#f4f5f7]">
               {developer.name}
             </p>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5 pt-0.5">
               {socialLinks.map((link) => (
                 <a
-                  key={link.href}
+                  key={link.label}
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-md border border-line bg-panel px-3 py-1.5 font-mono text-xs tracking-wider text-muted transition-colors hover:border-signal/50 hover:text-signal"
+                  className="border border-[#2b2f38] bg-[#111317] px-2.5 py-1 text-[10px] font-mono text-[#8e95a2] transition-colors hover:border-[#b497cf] hover:text-[#f4f5f7]"
                 >
-                  {link.label}
-                  <span aria-hidden>↗</span>
+                  {link.label} &rarr;
                 </a>
               ))}
             </div>
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-line pt-6 sm:flex-row">
-          <p className="font-mono text-[0.62rem] tracking-[0.18em] text-muted">
-            © {new Date().getFullYear()} {club.name} · {club.school}
-          </p>
-          <p className="flex items-center gap-2 font-mono text-[0.62rem] tracking-[0.18em] text-muted">
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-signal" aria-hidden />
-            The pulse stays on
-          </p>
+        {/* Bottom copyright */}
+        <div className="mt-10 pt-6 border-t border-[#1f2228] flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] font-mono text-[#8e95a2]">
+          <span>
+            &copy; {new Date().getFullYear()} {club.name} &middot; {club.school}
+          </span>
+          <span className="flex items-center gap-1.5 uppercase tracking-wider">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#b497cf]" />
+            Dept. of CSE &middot; CGC University
+          </span>
         </div>
       </div>
     </footer>

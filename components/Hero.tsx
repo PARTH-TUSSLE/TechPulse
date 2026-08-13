@@ -1,101 +1,134 @@
 import Reveal from "@/components/Reveal";
-
-function Beam() {
-  return (
-    <div className="pointer-events-none absolute inset-y-0 left-5 hidden w-px bg-gradient-to-b from-transparent via-line to-transparent md:block">
-      <span
-        className="absolute left-1/2 h-16 w-[3px] -translate-x-1/2 rounded-full bg-signal shadow-[0_0_18px_4px_rgba(39,255,158,0.55)]"
-        style={{ animation: "beamPulse 4.5s cubic-bezier(0.4,0,0.2,1) infinite" }}
-      />
-    </div>
-  );
-}
+import { club } from "@/lib/club";
 
 export default function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden px-5 pb-16 pt-28 sm:px-8"
+      className="relative max-w-6xl mx-auto px-5 sm:px-6 pt-28 sm:pt-36 pb-16 sm:pb-24 min-h-[85vh] flex flex-col justify-center"
     >
-      <Beam />
-
-      <div className="mx-auto w-full max-w-4xl">
-        <Reveal>
-          <p className="flex items-center gap-2 font-mono text-[0.7rem] uppercase tracking-[0.28em] text-muted sm:text-xs">
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-signal" />
-            <span>
-              CCE (CSE&nbsp;Block&nbsp;3) — Student&nbsp;Tech&nbsp;Club
-            </span>
-          </p>
-        </Reveal>
-
-        <Reveal delay={120}>
-          <h1 className="mt-6 font-display text-[clamp(2.5rem,13vw,7rem)] leading-[0.95] tracking-tight text-mist sm:text-7xl md:text-8xl lg:text-[7rem]">
-            Tech
-            <span className="text-pulse-gradient">Pulse</span>
-            <span
-              className="ml-2 inline-block text-signal"
-              style={{ animation: "blink 1.2s step-end infinite" }}
-              aria-hidden
-            >
-              _
-            </span>
-          </h1>
-        </Reveal>
-
-        <Reveal delay={240}>
-          <p className="mt-8 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-            The student tech club of the CSE department — workshops, expert talks and a crew
-            that helps you build beyond the syllabus. Betterment, exposure and guidance,
-            engineered for your career.
-          </p>
-        </Reveal>
-
-        <Reveal delay={360}>
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            <a
-              href="#events"
-              className="group inline-flex items-center gap-2 rounded-md bg-signal px-7 py-3.5 font-mono text-sm font-medium tracking-wider text-ink transition-all hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-6px_rgba(39,255,158,0.45)]"
-            >
-              SEE EVENTS
-              <span className="transition-transform group-hover:translate-x-1" aria-hidden>
-                →
-              </span>
-            </a>
-            <a
-              href="#team"
-              className="inline-flex items-center gap-2 rounded-md border border-line bg-panel/40 px-7 py-3.5 font-mono text-sm uppercase tracking-wider text-mist transition-colors hover:border-signal/50 hover:text-signal"
-            >
-              THE TEAM
-            </a>
+      {/* Top Meta Line */}
+      <Reveal>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#1f2228] pb-4 text-[11px] font-mono tracking-widest text-[#8e95a2] uppercase">
+          <div className="inline-flex items-center gap-2.5 bg-[#111317] px-3.5 py-1.5 border border-[#1f2228] shrink-0 whitespace-nowrap self-start sm:self-auto">
+            <span className="h-2 w-2 shrink-0 rounded-full bg-[#b497cf] animate-pulse" />
+            <span className="text-[#f4f5f7] font-semibold">{club.school}</span>
+            <span className="text-[#8e95a2]">&middot; {club.college}</span>
           </div>
-        </Reveal>
-      </div>
-
-      <Reveal delay={520} className="mx-auto mt-20 w-full max-w-4xl sm:px-8">
-        <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-t border-line pt-6 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-muted sm:text-[0.7rem]">
-          <span>Est. 2026</span>
-          <span>CGC University · Mohali</span>
-          <span>
-            Dept. of CSE · CCE · Block 3
-          </span>
+          <div className="flex items-center gap-2 text-[10px] sm:text-[11px] text-[#8e95a2] whitespace-nowrap shrink-0">
+            <span>EST. {club.est}</span>
+            <span>&middot;</span>
+            <span>{club.location}</span>
+          </div>
         </div>
       </Reveal>
 
-      <div
-        className="pointer-events-none absolute inset-0 flex items-end justify-center pb-8"
-        aria-hidden
-      >
-        <div className="flex flex-col items-center gap-3">
-          <span className="font-mono text-[0.6rem] uppercase tracking-[0.3em] text-muted">
-            Scroll
-          </span>
-          <span className="relative block h-8 w-px overflow-hidden bg-line">
-            <span
-              className="absolute left-0 top-0 h-3 w-full bg-signal"
-              style={{ animation: "scrollDot 1.8s ease-in-out infinite" }}
-            />
-          </span>
+      {/* Main Grid Hero Layout */}
+      <div className="mt-10 sm:mt-12 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center">
+        {/* Left Column - Headline & Copy */}
+        <div className="lg:col-span-7 space-y-6">
+          <Reveal delay={80}>
+            <div>
+              <span className="inline-block text-[10px] font-mono uppercase tracking-widest text-[#b497cf] mb-2 font-semibold">
+                Student Activity Community & Activity Hub
+              </span>
+              <h1 className="font-sans text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#f4f5f7] leading-[1.1]">
+                Tech<span className="text-[#b497cf] drop-shadow-[0_0_25px_rgba(180,151,207,0.3)]">Pulse</span>
+              </h1>
+              <p className="mt-2 font-serif text-xl sm:text-2xl text-[#8e95a2] italic font-normal">
+                Department of Computer Science & Engineering
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal delay={160}>
+            <p className="text-sm sm:text-base leading-relaxed text-[#8e95a2] max-w-xl">
+              The flagship student activity club of Block 3 — hands-on engineering workshops, expert talks, and project teams built for betterment, industry exposure, and career guidance.
+            </p>
+          </Reveal>
+
+          {/* Action Buttons & Quick Badges */}
+          <Reveal delay={240}>
+            <div className="pt-2 space-y-4">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                <a
+                  href="#events"
+                  className="inline-flex items-center justify-center gap-2 bg-[#f4f5f7] px-6 py-3 text-xs font-semibold uppercase tracking-wider text-[#090a0c] transition-all hover:bg-[#ffffff] shadow-lg shadow-white/5 active:scale-[0.98]"
+                >
+                  <span>Schedule & Events</span>
+                  <span>&rarr;</span>
+                </a>
+                <a
+                  href="#team"
+                  className="inline-flex items-center justify-center gap-2 border border-[#2b2f38] bg-[#111317] px-6 py-3 text-xs font-medium uppercase tracking-wider text-[#f4f5f7] transition-all hover:border-[#b497cf] hover:text-[#b497cf] active:scale-[0.98]"
+                >
+                  <span>Team Roster</span>
+                  <span>↓</span>
+                </a>
+              </div>
+
+              {/* Quick Metrics Line */}
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-[10px] font-mono text-[#8e95a2] uppercase pt-2">
+                <span className="flex items-center gap-1.5">
+                  <span className="h-1 w-1 rounded-full bg-[#b497cf]" /> 3 Core Pillars
+                </span>
+                <span>&middot;</span>
+                <span className="flex items-center gap-1.5">
+                  <span className="h-1 w-1 rounded-full bg-[#b497cf]" /> 9 Departmental Teams
+                </span>
+                <span className="hidden sm:inline">&middot;</span>
+                <span className="hidden sm:inline">CSE Block 3</span>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+
+        {/* Right Column - Premium Highlights Panel */}
+        <div className="lg:col-span-5">
+          <Reveal delay={200}>
+            <div className="border border-[#1f2228] bg-[#111317]/95 p-6 sm:p-7 shadow-2xl shadow-black/60 transition-all hover:border-[#2b2f38]">
+              <div className="flex items-center justify-between border-b border-[#1f2228] pb-4">
+                <span className="text-[11px] font-mono tracking-widest text-[#8e95a2] uppercase font-semibold">
+                  Pillars & Scope
+                </span>
+                <span className="text-[10px] font-mono text-[#b497cf] uppercase bg-[#090a0c] px-2.5 py-1 border border-[#1f2228]">
+                  CSE Block 3
+                </span>
+              </div>
+
+              <div className="mt-5 space-y-5 text-xs">
+                <div className="border-b border-[#16181d] pb-4 space-y-1">
+                  <div className="flex items-center justify-between font-mono text-[#b497cf] uppercase text-[10px]">
+                    <span className="font-bold">01 / Skill Elevation</span>
+                    <span className="text-[#8e95a2]">Betterment</span>
+                  </div>
+                  <p className="text-[#8e95a2] leading-relaxed text-xs">
+                    Hands-on workshops, engineering bootcamps, and interactive labs raising student technical baselines.
+                  </p>
+                </div>
+
+                <div className="border-b border-[#16181d] pb-4 space-y-1">
+                  <div className="flex items-center justify-between font-mono text-[#b497cf] uppercase text-[10px]">
+                    <span className="font-bold">02 / Industry & Academia</span>
+                    <span className="text-[#8e95a2]">Exposure</span>
+                  </div>
+                  <p className="text-[#8e95a2] leading-relaxed text-xs">
+                    Expert guest speakers, real-world case studies, and cross-department technical sessions.
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between font-mono text-[#b497cf] uppercase text-[10px]">
+                    <span className="font-bold">03 / Student Governance</span>
+                    <span className="text-[#8e95a2]">Guidance</span>
+                  </div>
+                  <p className="text-[#8e95a2] leading-relaxed text-xs">
+                    Structured student leadership teams alongside dedicated faculty mentorship and career support.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>
