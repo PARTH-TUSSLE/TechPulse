@@ -1,11 +1,12 @@
 import SectionHeader from "@/components/SectionHeader";
 import Reveal from "@/components/Reveal";
 import { events, type Event } from "@/lib/events";
+import { ArrowRightIcon } from "@/components/Icons";
 
 function EventItem({ event, index }: { event: Event; index: number }) {
   return (
     <Reveal delay={index * 80}>
-      <article className="border border-[#1f2228] bg-[#111317] p-5 sm:p-6 transition-colors hover:border-[#2b2f38]">
+      <article className="border border-[#1f2228] bg-[#111317] p-4 sm:p-6 transition-colors hover:border-[#2b2f38]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {/* Left Date Column */}
           <div className="lg:col-span-3 border-b lg:border-b-0 lg:border-r border-[#16181d] pb-4 lg:pb-0 lg:pr-6 flex flex-row lg:flex-col justify-between items-start">
@@ -37,7 +38,7 @@ function EventItem({ event, index }: { event: Event; index: number }) {
           {/* Right Detail Column */}
           <div className="lg:col-span-9 space-y-4">
             <div>
-              <h3 className="text-xl sm:text-2xl font-bold text-[#f4f5f7] tracking-tight leading-snug">
+              <h3 className="text-lg sm:text-2xl font-bold text-[#f4f5f7] tracking-tight leading-snug">
                 {event.title}
               </h3>
               <p className="mt-1.5 text-xs sm:text-sm leading-relaxed text-[#8e95a2]">
@@ -81,7 +82,8 @@ function EventItem({ event, index }: { event: Event; index: number }) {
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 bg-[#f4f5f7] px-4 py-2 text-[10px] font-semibold uppercase tracking-wider text-[#090a0c] transition-colors hover:bg-[#ffffff] active:scale-[0.98]"
                 >
-                  Feedback Form &rarr;
+                  <span>Feedback Form</span>
+                  <ArrowRightIcon className="w-3.5 h-3.5" />
                 </a>
               ) : (
                 <span className="text-[10px] font-mono text-[#8e95a2] uppercase self-end sm:self-auto">
@@ -100,7 +102,7 @@ export default function Events() {
   return (
     <section
       id="events"
-      className="relative max-w-5xl mx-auto px-5 py-12 lg:px-6 border-t border-[#1f2228]"
+      className="relative max-w-5xl mx-auto px-4 py-10 sm:py-14 sm:px-6 border-t border-[#1f2228] w-full max-w-full overflow-x-clip"
       aria-labelledby="events-title"
     >
       <SectionHeader
@@ -109,7 +111,7 @@ export default function Events() {
         lede="Expert sessions and hands-on labs hosted in Block 3."
       />
 
-      <div className="mt-8 space-y-5">
+      <div className="mt-6 sm:mt-8 space-y-4 sm:space-y-5">
         {events.map((event, i) => (
           <EventItem key={event.id} event={event} index={i} />
         ))}

@@ -1,4 +1,5 @@
 import { club, developer } from "@/lib/club";
+import { ExternalLinkIcon } from "@/components/Icons";
 
 const socialLinks = [
   { label: "GitHub", href: developer.socials.github },
@@ -8,8 +9,8 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="relative border-t border-[#1f2228] bg-[#090a0c]">
-      <div className="mx-auto max-w-5xl px-5 py-10 lg:px-6">
+    <footer className="relative border-t border-[#1f2228] bg-[#090a0c] w-full max-w-full overflow-x-clip">
+      <div className="mx-auto max-w-5xl px-4 py-8 sm:py-10 sm:px-6">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
           {/* Brand Col */}
           <div className="md:col-span-5 space-y-3">
@@ -28,10 +29,10 @@ export default function Footer() {
 
           {/* Quick Nav Col */}
           <div className="md:col-span-3 space-y-2">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-[#8e95a2] block">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[#8e95a2] block font-semibold">
               Navigation
             </span>
-            <ul className="space-y-1 text-xs font-mono uppercase">
+            <ul className="space-y-1.5 text-xs font-mono uppercase">
               <li>
                 <a href="#home" className="text-[#8e95a2] hover:text-[#f4f5f7] transition-colors">
                   01 / Home
@@ -57,22 +58,23 @@ export default function Footer() {
 
           {/* Developer Col */}
           <div className="md:col-span-4 space-y-2">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-[#8e95a2] block">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[#8e95a2] block font-semibold">
               Designed & Developed By
             </span>
             <p className="text-xs font-semibold text-[#f4f5f7]">
               {developer.name}
             </p>
-            <div className="flex flex-wrap gap-1.5 pt-0.5">
+            <div className="flex flex-wrap gap-1.5 pt-1">
               {socialLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="border border-[#2b2f38] bg-[#111317] px-2.5 py-1 text-[10px] font-mono text-[#8e95a2] transition-colors hover:border-[#b497cf] hover:text-[#f4f5f7]"
+                  className="inline-flex items-center gap-1.5 border border-[#2b2f38] bg-[#111317] px-2.5 py-1 text-[10px] font-mono text-[#8e95a2] transition-colors hover:border-[#b497cf] hover:text-[#f4f5f7]"
                 >
-                  {link.label} &rarr;
+                  <span>{link.label}</span>
+                  <ExternalLinkIcon className="w-3 h-3" />
                 </a>
               ))}
             </div>
@@ -80,12 +82,12 @@ export default function Footer() {
         </div>
 
         {/* Bottom copyright */}
-        <div className="mt-10 pt-6 border-t border-[#1f2228] flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] font-mono text-[#8e95a2]">
+        <div className="mt-8 sm:mt-10 pt-6 border-t border-[#1f2228] flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] sm:text-[11px] font-mono text-[#8e95a2] text-center sm:text-left">
           <span>
             &copy; {new Date().getFullYear()} {club.name} &middot; {club.school}
           </span>
-          <span className="flex items-center gap-1.5 uppercase tracking-wider">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#b497cf]" />
+          <span className="flex items-center justify-center gap-1.5 uppercase tracking-wider">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#b497cf] shrink-0" />
             Dept. of CSE &middot; CGC University
           </span>
         </div>

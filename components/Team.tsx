@@ -5,6 +5,16 @@ import SectionHeader from "@/components/SectionHeader";
 import Reveal from "@/components/Reveal";
 import { leadership, teams, type Team, type TeamMember } from "@/lib/team";
 import { joinUrl } from "@/lib/club";
+import {
+  PlayIcon,
+  PauseIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronUpIcon,
+  ChevronDownIcon,
+  ArrowLeftIcon,
+  ArrowRightIcon,
+} from "@/components/Icons";
 
 function initials(name: string) {
   if (name.toLowerCase().includes("open")) return "?";
@@ -54,7 +64,7 @@ function CarouselTeamCard({
 }) {
   return (
     <div
-      className={`snap-start shrink-0 w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] border bg-[#111317]/95 p-5 transition-all duration-300 flex flex-col justify-between ${
+      className={`snap-start shrink-0 w-[calc(100vw-2.5rem)] max-w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] border bg-[#111317]/95 p-4 sm:p-5 transition-all duration-300 flex flex-col justify-between ${
         isActive
           ? "border-[#b497cf] shadow-xl shadow-[#b497cf]/10 ring-1 ring-[#b497cf]/30"
           : "border-[#1f2228] opacity-85 hover:opacity-100 hover:border-[#2b2f38]"
@@ -117,7 +127,7 @@ function CarouselTeamCard({
           className="w-full inline-flex items-center justify-center gap-1.5 border border-[#2b2f38] bg-[#090a0c] px-3 py-2 text-[10px] font-mono uppercase tracking-wider text-[#f4f5f7] transition-all hover:border-[#b497cf] hover:text-[#b497cf] active:scale-[0.98]"
         >
           <span>{isOpen ? "Hide Members" : "View Roster"}</span>
-          <span>{isOpen ? "↑" : "↓"}</span>
+          {isOpen ? <ChevronUpIcon className="w-3.5 h-3.5" /> : <ChevronDownIcon className="w-3.5 h-3.5" />}
         </button>
       </div>
     </div>
@@ -200,36 +210,46 @@ function AutomaticTeamCarousel({ teams }: { teams: Team[] }) {
   };
 
   return (
-    <div className="space-y-4">
-      {/* Carousel Control Bar - Counter + Title + Centered Controls on clean line */}
-      <div className="flex flex-wrap items-center justify-center sm:justify-between gap-3 bg-[#111317] border border-[#1f2228] px-4 py-3 text-xs font-mono">
-        {/* Team Counter & Active Title inline on single line */}
-        <div className="flex items-center justify-center gap-2.5 shrink-0">
+    <div className="space-y-4 max-w-full">
+      {/* Carousel Control Bar - Counter + Title + Clean Controls */}
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-[#111317] border border-[#1f2228] px-3.5 py-3 text-xs font-mono max-w-full overflow-hidden">
+        {/* Team Counter & Active Title */}
+        <div className="flex items-center gap-2.5 min-w-0">
           <span className="shrink-0 whitespace-nowrap text-[#b497cf] font-bold text-xs bg-[#090a0c] px-2.5 py-1 border border-[#1f2228]">
             {String(currentIndex + 1).padStart(2, "0")} / {String(teams.length).padStart(2, "0")}
           </span>
-          <span className="shrink-0 whitespace-nowrap text-[#f4f5f7] font-semibold text-xs sm:text-sm">
+          <span className="truncate text-[#f4f5f7] font-semibold text-xs sm:text-sm">
             {teams[currentIndex]?.title}
           </span>
         </div>
 
         {/* Centered Controls Group: Resume/Pause, Prev, Next */}
-        <div className="flex items-center justify-center gap-2 shrink-0">
-          {/* Pause / Play toggle */}
+        <div className="flex items-center justify-between sm:justify-end gap-2 shrink-0 border-t sm:border-t-0 border-[#1f2228] pt-2 sm:pt-0">
+          {/* Pause / Play toggle with crisp vector SVG icons */}
           <button
             type="button"
             onClick={() => setIsPaused((prev) => !prev)}
-            className={`shrink-0 whitespace-nowrap px-3 py-1.5 text-[10px] font-bold uppercase font-mono border transition-all active:scale-95 ${
+            className={`inline-flex items-center gap-1.5 shrink-0 whitespace-nowrap px-3 py-1.5 text-[10px] font-bold uppercase font-mono border transition-all active:scale-95 ${
               isPaused
                 ? "bg-[#b497cf] border-[#b497cf] text-[#090a0c] shadow-md shadow-[#b497cf]/20"
                 : "bg-[#090a0c] border-[#2b2f38] text-[#b497cf] hover:border-[#b497cf]"
             }`}
             title={isPaused ? "Resume Auto-Carousel" : "Pause Auto-Carousel"}
           >
-            {isPaused ? "▶ Resume" : "⏸ Pause"}
+            {isPaused ? (
+              <>
+                <PlayIcon className="w-3 h-3" />
+                <span>Resume</span>
+              </>
+            ) : (
+              <>
+                <PauseIcon className="w-3 h-3" />
+                <span>Pause</span>
+              </>
+            )}
           </button>
 
-          {/* Left / Right arrows */}
+          {/* Left / Right arrows with crisp vector SVG icons */}
           <div className="flex items-center gap-1 shrink-0">
             <button
               type="button"
@@ -237,7 +257,7 @@ function AutomaticTeamCarousel({ teams }: { teams: Team[] }) {
               aria-label="Previous Team Card"
               className="flex h-7 w-7 shrink-0 items-center justify-center border border-[#2b2f38] bg-[#090a0c] text-[#f4f5f7] hover:border-[#b497cf] hover:text-[#b497cf] active:scale-95 transition-all"
             >
-              ←
+              <ChevronLeftIcon className="w-4 h-4" />
             </button>
             <button
               type="button"
@@ -245,7 +265,7 @@ function AutomaticTeamCarousel({ teams }: { teams: Team[] }) {
               aria-label="Next Team Card"
               className="flex h-7 w-7 shrink-0 items-center justify-center border border-[#2b2f38] bg-[#090a0c] text-[#f4f5f7] hover:border-[#b497cf] hover:text-[#b497cf] active:scale-95 transition-all"
             >
-              →
+              <ChevronRightIcon className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -261,13 +281,13 @@ function AutomaticTeamCarousel({ teams }: { teams: Team[] }) {
         />
       </div>
 
-      {/* Horizontal Carousel Track - items-start ensures expanding one card does not stretch adjacent cards */}
+      {/* Horizontal Carousel Track */}
       <div
         ref={scrollContainerRef}
         onScroll={handleScroll}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
-        className="flex items-start gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar scroll-touch py-2 px-0.5"
+        className="flex items-start gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar scroll-touch py-2 px-0.5 w-full max-w-full"
       >
         {teams.map((team, idx) => (
           <CarouselTeamCard
@@ -333,7 +353,7 @@ function TeamAccordionItem({ team }: { team: Team }) {
           className="self-start sm:self-center inline-flex items-center gap-1.5 border border-[#2b2f38] bg-[#090a0c] px-3.5 py-1.5 text-[10px] font-mono uppercase tracking-wider text-[#f4f5f7] transition-colors hover:border-[#b497cf] hover:text-[#b497cf] active:scale-[0.98]"
         >
           <span>{open ? "Hide Members" : "View Roster"}</span>
-          <span>{open ? "↑" : "↓"}</span>
+          {open ? <ChevronUpIcon className="w-3.5 h-3.5" /> : <ChevronDownIcon className="w-3.5 h-3.5" />}
         </button>
       </div>
 
@@ -369,7 +389,7 @@ export default function Team() {
   return (
     <section
       id="team"
-      className="relative max-w-5xl mx-auto px-4 py-10 sm:py-14 sm:px-6 border-t border-[#1f2228]"
+      className="relative max-w-5xl mx-auto px-4 py-10 sm:py-14 sm:px-6 border-t border-[#1f2228] w-full max-w-full overflow-x-clip"
       aria-labelledby="team-title"
     >
       <SectionHeader
@@ -428,8 +448,8 @@ export default function Team() {
               </span>
             </div>
 
-            {/* Category Filter Pills - Scrollable horizontal bar on mobile */}
-            <div className="flex overflow-x-auto no-scrollbar scroll-touch gap-1.5 pb-1 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0">
+            {/* Category Filter Pills - Scrollable horizontal bar on mobile without negative margin bleed */}
+            <div className="flex overflow-x-auto no-scrollbar scroll-touch gap-1.5 pb-1 pt-1 w-full max-w-full">
               <button
                 type="button"
                 onClick={() => setFilter("all")}
@@ -473,7 +493,8 @@ export default function Team() {
                 onClick={() => setFilter("all")}
                 className="inline-flex items-center gap-1.5 border border-[#2b2f38] bg-[#111317] px-4 py-2 text-[10px] font-mono text-[#b497cf] uppercase hover:border-[#b497cf] transition-all active:scale-95"
               >
-                ← Back to All Teams Carousel
+                <ArrowLeftIcon className="w-3.5 h-3.5" />
+                <span>Back to All Teams Carousel</span>
               </button>
             </div>
           </div>
@@ -493,9 +514,10 @@ export default function Team() {
             href={joinUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto text-center shrink-0 bg-[#b497cf] px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-[#090a0c] transition-all hover:bg-[#c4a5e6] active:scale-[0.98]"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 shrink-0 bg-[#b497cf] px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-[#090a0c] transition-all hover:bg-[#c4a5e6] active:scale-[0.98]"
           >
-            Apply for Slot &rarr;
+            <span>Apply for Slot</span>
+            <ArrowRightIcon className="w-3.5 h-3.5" />
           </a>
         </div>
       </Reveal>

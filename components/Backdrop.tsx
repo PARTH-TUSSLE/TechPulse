@@ -18,17 +18,17 @@ export default function Backdrop() {
   const reduceMotion = useSyncExternalStore(subscribeReducedMotion, getReducedMotion, () => false);
 
   return (
-    <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[#090a0c]" aria-hidden>
+    <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[#090a0c]" aria-hidden="true">
       {reduceMotion ? (
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 pointer-events-none"
           style={{
             background:
               "radial-gradient(80% 50% at 50% 0%, rgba(180, 151, 207, 0.15), transparent 70%)",
           }}
         />
       ) : (
-        <div className="absolute inset-0 opacity-80 pointer-events-auto">
+        <div className="absolute inset-0 opacity-80 pointer-events-none">
           <PixelBlast
             variant="square"
             pixelSize={2}
@@ -36,7 +36,6 @@ export default function Backdrop() {
             patternScale={2}
             patternDensity={2}
             pixelSizeJitter={0}
-            // enableRipples
             rippleSpeed={0.4}
             rippleThickness={0.12}
             rippleIntensityScale={1.5}

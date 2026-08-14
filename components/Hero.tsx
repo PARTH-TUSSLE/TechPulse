@@ -1,21 +1,22 @@
 import Reveal from "@/components/Reveal";
 import { club } from "@/lib/club";
+import { ArrowRightIcon, ChevronDownIcon } from "@/components/Icons";
 
 export default function Hero() {
   return (
     <section
       id="home"
-      className="relative max-w-6xl mx-auto px-5 sm:px-6 pt-28 sm:pt-36 pb-16 sm:pb-24 min-h-[85vh] flex flex-col justify-center"
+      className="relative max-w-6xl mx-auto px-4 sm:px-6 pt-24 sm:pt-36 pb-12 sm:pb-24 min-h-[85vh] flex flex-col justify-center w-full max-w-full overflow-x-clip"
     >
       {/* Top Meta Line */}
       <Reveal>
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#1f2228] pb-4 text-[11px] font-mono tracking-widest text-[#8e95a2] uppercase">
-          <div className="inline-flex items-center gap-2.5 bg-[#111317] px-3.5 py-1.5 border border-[#1f2228] shrink-0 whitespace-nowrap self-start sm:self-auto">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#1f2228] pb-4 text-[11px] font-mono tracking-widest text-[#8e95a2] uppercase max-w-full">
+          <div className="inline-flex items-center gap-2 bg-[#111317] px-3 py-1.5 border border-[#1f2228] max-w-full overflow-hidden self-start sm:self-auto">
             <span className="h-2 w-2 shrink-0 rounded-full bg-[#b497cf] animate-pulse" />
-            <span className="text-[#f4f5f7] font-semibold">{club.school}</span>
-            <span className="text-[#8e95a2]">&middot; {club.college}</span>
+            <span className="text-[#f4f5f7] font-semibold truncate">{club.school}</span>
+            <span className="text-[#8e95a2] shrink-0">&middot; {club.college}</span>
           </div>
-          <div className="flex items-center gap-2 text-[10px] sm:text-[11px] text-[#8e95a2] whitespace-nowrap shrink-0">
+          <div className="flex items-center gap-2 text-[10px] sm:text-[11px] text-[#8e95a2] shrink-0">
             <span>EST. {club.est}</span>
             <span>&middot;</span>
             <span>{club.location}</span>
@@ -24,7 +25,7 @@ export default function Hero() {
       </Reveal>
 
       {/* Main Grid Hero Layout */}
-      <div className="mt-10 sm:mt-12 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center">
+      <div className="mt-8 sm:mt-12 grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center">
         {/* Left Column - Headline & Copy */}
         <div className="lg:col-span-7 space-y-6">
           <Reveal delay={80}>
@@ -56,19 +57,19 @@ export default function Hero() {
                   className="inline-flex items-center justify-center gap-2 bg-[#f4f5f7] px-6 py-3 text-xs font-semibold uppercase tracking-wider text-[#090a0c] transition-all hover:bg-[#ffffff] shadow-lg shadow-white/5 active:scale-[0.98]"
                 >
                   <span>Schedule & Events</span>
-                  <span>&rarr;</span>
+                  <ArrowRightIcon className="w-3.5 h-3.5" />
                 </a>
                 <a
                   href="#team"
                   className="inline-flex items-center justify-center gap-2 border border-[#2b2f38] bg-[#111317] px-6 py-3 text-xs font-medium uppercase tracking-wider text-[#f4f5f7] transition-all hover:border-[#b497cf] hover:text-[#b497cf] active:scale-[0.98]"
                 >
                   <span>Team Roster</span>
-                  <span>↓</span>
+                  <ChevronDownIcon className="w-3.5 h-3.5" />
                 </a>
               </div>
 
               {/* Quick Metrics Line */}
-              <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-[10px] font-mono text-[#8e95a2] uppercase pt-2">
+              <div className="flex flex-wrap items-center gap-2.5 sm:gap-4 text-[10px] font-mono text-[#8e95a2] uppercase pt-2">
                 <span className="flex items-center gap-1.5">
                   <span className="h-1 w-1 rounded-full bg-[#b497cf]" /> 3 Core Pillars
                 </span>
@@ -86,7 +87,7 @@ export default function Hero() {
         {/* Right Column - Premium Highlights Panel */}
         <div className="lg:col-span-5">
           <Reveal delay={200}>
-            <div className="border border-[#1f2228] bg-[#111317]/95 p-6 sm:p-7 shadow-2xl shadow-black/60 transition-all hover:border-[#2b2f38]">
+            <div className="border border-[#1f2228] bg-[#111317]/95 p-5 sm:p-7 shadow-2xl shadow-black/60 transition-all hover:border-[#2b2f38]">
               <div className="flex items-center justify-between border-b border-[#1f2228] pb-4">
                 <span className="text-[11px] font-mono tracking-widest text-[#8e95a2] uppercase font-semibold">
                   Pillars & Scope

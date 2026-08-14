@@ -1,5 +1,6 @@
 import Reveal from "@/components/Reveal";
 import { joinUrl } from "@/lib/club";
+import { ArrowRightIcon } from "@/components/Icons";
 
 const advantages = [
   {
@@ -23,12 +24,12 @@ export default function JoinUs() {
   return (
     <section
       id="join"
-      className="relative max-w-5xl mx-auto px-5 py-12 lg:px-6 border-t border-[#1f2228]"
+      className="relative max-w-5xl mx-auto px-4 py-10 sm:py-14 sm:px-6 border-t border-[#1f2228] w-full max-w-full overflow-x-clip"
     >
       <Reveal>
-        <div className="border border-[#1f2228] bg-[#111317] p-6 sm:p-10">
+        <div className="border border-[#1f2228] bg-[#111317] p-5 sm:p-10">
           <div className="max-w-2xl">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-[#b497cf] block mb-1.5">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[#b497cf] block mb-1.5 font-semibold">
               Membership & Applications
             </span>
             <h2 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-[#f4f5f7] leading-tight">
@@ -40,10 +41,10 @@ export default function JoinUs() {
           </div>
 
           {/* 3 Pillars Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 pt-6 border-t border-[#16181d]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 sm:mt-8 pt-6 border-t border-[#16181d]">
             {advantages.map((adv) => (
               <div key={adv.step} className="space-y-1">
-                <span className="text-[10px] font-mono text-[#b497cf] uppercase">
+                <span className="text-[10px] font-mono text-[#b497cf] uppercase font-bold">
                   {adv.step}
                 </span>
                 <h3 className="text-sm font-bold text-[#f4f5f7]">
@@ -57,7 +58,7 @@ export default function JoinUs() {
           </div>
 
           {/* Direct CTA Bar */}
-          <div className="mt-8 pt-6 border-t border-[#16181d] flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="mt-6 sm:mt-8 pt-6 border-t border-[#16181d] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
             <div>
               <span className="text-[10px] font-mono uppercase text-[#8e95a2] tracking-wider block">
                 Application Status: OPEN
@@ -71,9 +72,10 @@ export default function JoinUs() {
               href={joinUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center bg-[#b497cf] px-6 py-2.5 text-xs font-semibold uppercase tracking-wider text-[#090a0c] transition-all hover:bg-[#c4a5e6]"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#b497cf] px-6 py-2.5 text-xs font-semibold uppercase tracking-wider text-[#090a0c] transition-all hover:bg-[#c4a5e6] active:scale-[0.98]"
             >
-              Open Application Form &rarr;
+              <span>Open Application Form</span>
+              <ArrowRightIcon className="w-3.5 h-3.5" />
             </a>
           </div>
         </div>

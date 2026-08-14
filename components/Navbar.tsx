@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { nav, joinUrl, club, developer } from "@/lib/club";
+import { nav, joinUrl, club } from "@/lib/club";
+import { ExternalLinkIcon, ArrowRightIcon } from "@/components/Icons";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -41,23 +42,23 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 w-full max-w-full ${
         scrolled || open
           ? "border-b border-[#1f2228] bg-[#090a0c]/95 backdrop-blur-xl py-3 shadow-2xl shadow-black/40"
           : "border-b border-transparent bg-transparent py-4"
       }`}
     >
-      <nav className="mx-auto flex max-w-5xl items-center justify-between px-5 lg:px-6" aria-label="Main Navigation">
+      <nav className="mx-auto flex max-w-5xl items-center justify-between px-4 sm:px-5 lg:px-6" aria-label="Main Navigation">
         {/* Brand identity */}
-        <a href="#home" className="group flex items-center gap-2.5" onClick={() => setOpen(false)}>
-          <span className="flex h-7 w-7 items-center justify-center border border-[#2b2f38] bg-[#111317] text-xs font-bold tracking-wider text-[#b497cf] transition-all group-hover:border-[#b497cf] group-hover:shadow-md group-hover:shadow-[#b497cf]/20">
+        <a href="#home" className="group flex items-center gap-2.5 min-w-0" onClick={() => setOpen(false)}>
+          <span className="flex h-7 w-7 shrink-0 items-center justify-center border border-[#2b2f38] bg-[#111317] text-xs font-bold tracking-wider text-[#b497cf] transition-all group-hover:border-[#b497cf] group-hover:shadow-md group-hover:shadow-[#b497cf]/20">
             TP
           </span>
-          <div className="flex flex-col">
-            <span className="text-sm font-bold tracking-tight text-[#f4f5f7] group-hover:text-[#ffffff] transition-colors">
+          <div className="flex flex-col min-w-0">
+            <span className="text-sm font-bold tracking-tight text-[#f4f5f7] group-hover:text-[#ffffff] transition-colors truncate">
               TechPulse
             </span>
-            <span className="text-[9px] font-mono tracking-wider text-[#8e95a2] uppercase">
+            <span className="text-[9px] font-mono tracking-wider text-[#8e95a2] uppercase truncate">
               Dept. of CSE &middot; Block 3
             </span>
           </div>
@@ -83,8 +84,8 @@ export default function Navbar() {
               >
                 <span className="flex items-center gap-1.5">
                   {isActive && <span className="h-1.5 w-1.5 rounded-full bg-[#b497cf]" />}
-                  {item.label}
-                  {isExternal && <span className="text-[9px] text-[#8e95a2]">↗</span>}
+                  <span>{item.label}</span>
+                  {isExternal && <ExternalLinkIcon className="w-3 h-3 text-[#8e95a2]" />}
                 </span>
               </a>
             );
@@ -97,7 +98,7 @@ export default function Navbar() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-label={open ? "Close menu" : "Open menu"}
-          className={`flex h-9 w-9 items-center justify-center border transition-all active:scale-95 sm:hidden ${
+          className={`flex h-9 w-9 items-center justify-center border transition-all active:scale-95 sm:hidden shrink-0 ${
             open
               ? "border-[#b497cf] bg-[#111317] text-[#b497cf] shadow-lg shadow-[#b497cf]/20"
               : "border-[#2b2f38] bg-[#111317] text-[#f4f5f7] hover:border-[#b497cf]"
@@ -119,16 +120,16 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* WOW Mobile Navigation Overlay */}
+      {/* Mobile Navigation Overlay */}
       <div
         className={`overflow-hidden border-t border-[#1f2228] bg-[#090a0c]/98 backdrop-blur-2xl transition-all duration-300 ease-out sm:hidden ${
           open ? "max-h-[85vh] opacity-100 py-4" : "max-h-0 opacity-0 pointer-events-none"
         }`}
       >
-        <div className="flex flex-col space-y-4 px-5">
+        <div className="flex flex-col space-y-4 px-4 sm:px-5">
           {/* Header Status Bar */}
           <div className="flex items-center justify-between border-b border-[#16181d] pb-3 text-[10px] font-mono tracking-widest text-[#8e95a2] uppercase">
-            <span className="flex items-center gap-2 text-[#b497cf]">
+            <span className="flex items-center gap-2 text-[#b497cf] font-bold">
               <span className="h-2 w-2 rounded-full bg-[#b497cf] animate-pulse" />
               NAVIGATION
             </span>
@@ -154,7 +155,7 @@ export default function Navbar() {
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="font-mono text-xs text-[#b497cf]">
+                    <span className="font-mono text-xs text-[#b497cf] font-semibold">
                       0{idx + 1}
                     </span>
                     <span className="font-sans text-base font-bold tracking-tight group-hover:translate-x-1 transition-transform">
@@ -162,8 +163,14 @@ export default function Navbar() {
                     </span>
                   </div>
 
-                  <span className="font-mono text-xs">
-                    {isExternal ? "↗" : isActive ? "●" : "→"}
+                  <span className="font-mono text-xs flex items-center">
+                    {isExternal ? (
+                      <ExternalLinkIcon className="w-3.5 h-3.5 text-[#b497cf]" />
+                    ) : isActive ? (
+                      <span className="h-2 w-2 rounded-full bg-[#b497cf]" />
+                    ) : (
+                      <ArrowRightIcon className="w-3.5 h-3.5 text-[#8e95a2]" />
+                    )}
                   </span>
                 </a>
               );
@@ -180,7 +187,7 @@ export default function Navbar() {
               className="w-full inline-flex items-center justify-center gap-2 bg-[#b497cf] py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#090a0c] shadow-lg shadow-[#b497cf]/20 transition-all hover:bg-[#c4a5e6] active:scale-[0.98]"
             >
               <span>Apply for Slot</span>
-              <span>&rarr;</span>
+              <ArrowRightIcon className="w-3.5 h-3.5" />
             </a>
 
             <div className="flex items-center justify-center text-[10px] font-mono text-[#8e95a2] pt-1">
