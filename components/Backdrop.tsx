@@ -31,7 +31,7 @@ export default function Backdrop() {
         <div className="absolute inset-0 opacity-80 pointer-events-none">
           <PixelBlast
             variant="square"
-            pixelSize={2}
+            pixelSize={4}
             color="#ab5ff3"
             patternScale={2}
             patternDensity={2}
