@@ -26,14 +26,14 @@ const placeholderMembers = (teamId: string, role: string): TeamMember[] =>
 export const leadership: TeamMember[] = [
   {
     id: "president",
-    name: "Yash Sharma",
+    name: "Yash Verma",
     role: "Student President · Club Coordinator",
     lead: true,
   },
   {
     id: "vp",
-    name: "Yash Verma",
-    role: "Vice President · Deputy Coordinator",
+    name: "Parth Gartan",
+    role: "Vice President · Technical Coordinator",
     lead: true,
   },
 ];

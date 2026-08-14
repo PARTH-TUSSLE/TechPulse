@@ -50,15 +50,15 @@ export const mission = [
 export const team: Member[] = [
   {
     rank: "01",
-    name: "Yash Sharma",
+    name: "Yash Verma",
     role: "Student President · Club Coordinator",
     duties:
       "Leads the student body of the club, coordinates with the faculty in-charge, assigns responsibilities, conducts meetings, and monitors the progress of every team.",
   },
   {
     rank: "02",
-    name: "Yash Verma",
-    role: "Vice President · Deputy Coordinator",
+    name: "Parth Gartan",
+    role: "Vice President · Technical Coordinator",
     duties:
       "Supports planning and management, supervises all coordinators, resolves operational issues, and leads the club in the President's absence.",
   },
