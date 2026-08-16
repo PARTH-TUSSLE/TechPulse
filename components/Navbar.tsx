@@ -48,7 +48,7 @@ export default function Navbar() {
           : "border-b border-transparent bg-transparent py-4"
       }`}
     >
-      <nav className="mx-auto flex max-w-5xl items-center justify-between px-4 sm:px-5 lg:px-6" aria-label="Main Navigation">
+      <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 sm:px-6" aria-label="Main Navigation">
         {/* Brand identity */}
         <a href="#home" className="group flex items-center gap-2.5 min-w-0" onClick={() => setOpen(false)}>
           <span className="flex h-7 w-7 shrink-0 items-center justify-center border border-[#2b2f38] bg-[#111317] text-xs font-bold tracking-wider text-[#b497cf] transition-all group-hover:border-[#b497cf] group-hover:shadow-md group-hover:shadow-[#b497cf]/20">

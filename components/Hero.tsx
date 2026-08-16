@@ -6,7 +6,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative max-w-6xl mx-auto px-4 sm:px-6 pt-24 sm:pt-36 pb-12 sm:pb-20 min-h-[85vh] flex flex-col justify-center w-full max-w-full overflow-x-clip"
+      className="relative mx-auto w-full max-w-6xl px-4 sm:px-6 pt-24 sm:pt-36 pb-12 sm:pb-24 min-h-[85vh] flex flex-col justify-center overflow-x-clip"
     >
       {/* Top Meta Tag Line */}
       <Reveal>
@@ -25,7 +25,7 @@ export default function Hero() {
       </Reveal>
 
       {/* Main Grid Hero Layout */}
-      <div className="mt-8 sm:mt-12 grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center">
+      <div className="mt-8 sm:mt-12 grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-stretch">
         {/* Left Column - Big Headline & Concise Copy */}
         <div className="lg:col-span-7 space-y-6">
           <Reveal delay={80}>
@@ -92,8 +92,8 @@ export default function Hero() {
 
         {/* Right Column - Premium High-Impact Highlights Card */}
         <div className="lg:col-span-5">
-          <Reveal delay={200}>
-            <div className="border border-[#1f2228] bg-[#111317]/95 p-6 sm:p-7 shadow-2xl shadow-black/70 transition-all hover:border-[#b497cf]/50">
+          <Reveal delay={200} className="h-full">
+            <div className="flex h-full flex-col border border-[#1f2228] bg-[#111317]/95 p-6 sm:p-7 shadow-2xl shadow-black/70 transition-all hover:border-[#b497cf]/50">
               <div className="flex items-center justify-between border-b border-[#1f2228] pb-4">
                 <span className="text-xs font-mono tracking-widest text-[#f4f5f7] uppercase font-bold">
                   Core Mandate
@@ -103,7 +103,7 @@ export default function Hero() {
                 </span>
               </div>
 
-              <div className="mt-5 space-y-4">
+              <div className="mt-5 flex flex-1 flex-col justify-between space-y-4">
                 <div className="border-b border-[#16181d] pb-3.5">
                   <div className="flex items-center justify-between font-mono uppercase text-xs mb-1">
                     <span className="font-extrabold text-[#b497cf]">01 / Betterment</span>

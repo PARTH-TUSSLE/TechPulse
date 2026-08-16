@@ -10,7 +10,7 @@ const socialLinks = [
 export default function Footer() {
   return (
     <footer className="relative border-t border-[#1f2228] bg-[#090a0c] w-full max-w-full overflow-x-clip">
-      <div className="mx-auto max-w-5xl px-4 py-8 sm:py-10 sm:px-6">
+      <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:py-10 sm:px-6">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
           {/* Brand Col */}
           <div className="md:col-span-5 space-y-3">

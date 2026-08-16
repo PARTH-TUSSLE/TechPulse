@@ -102,7 +102,7 @@ export default function Events() {
   return (
     <section
       id="events"
-      className="relative max-w-5xl mx-auto px-4 py-12 sm:py-16 sm:px-6 border-t border-[#1f2228] w-full max-w-full overflow-x-clip"
+      className="relative mx-auto w-full max-w-6xl px-4 py-12 sm:py-16 sm:px-6 border-t border-[#1f2228] overflow-x-clip"
       aria-labelledby="events-title"
     >
       <SectionHeader

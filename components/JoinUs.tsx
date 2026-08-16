@@ -24,7 +24,7 @@ export default function JoinUs() {
   return (
     <section
       id="join"
-      className="relative max-w-5xl mx-auto px-4 py-12 sm:py-16 sm:px-6 border-t border-[#1f2228] w-full max-w-full overflow-x-clip"
+      className="relative mx-auto w-full max-w-6xl px-4 py-12 sm:py-16 sm:px-6 border-t border-[#1f2228] overflow-x-clip"
     >
       <Reveal>
         <div className="border border-[#1f2228] bg-[#111317] p-6 sm:p-10 transition-all hover:border-[#b497cf]/50 hover:shadow-2xl hover:shadow-[#b497cf]/5">

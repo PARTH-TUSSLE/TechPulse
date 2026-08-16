@@ -9,10 +9,10 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen w-full max-w-full overflow-x-clip">
+    <div className="relative min-h-screen w-full overflow-x-clip">
       <Backdrop />
       <Navbar />
-      <main className="relative z-10 w-full max-w-full overflow-x-clip" id="main">
+      <main className="relative z-10 w-full overflow-x-clip" id="main">
         <Hero />
         <Purpose />
         <Team />
