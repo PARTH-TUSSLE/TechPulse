@@ -30,7 +30,7 @@ export default function JoinUs() {
         <div className="border border-[#2c2345] bg-[#1b1531] p-6 sm:p-10 transition-all hover:border-[#b497cf]/50 hover:shadow-2xl hover:shadow-[#b497cf]/5">
           <div className="max-w-2xl">
 <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#b497cf]/10 border border-[#b497cf]/30 mb-3">
-                <span className="tp-heartbeat h-1.5 w-1.5 rounded-full bg-[#e8a05c]" />
+                <span className="tp-heartbeat h-1.5 w-1.5 rounded-full bg-[#a8e08f]" />
               <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#b497cf]">
                 Membership Open
               </span>
@@ -75,7 +75,7 @@ export default function JoinUs() {
               href={joinUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#e8a05c] px-7 py-3 text-xs font-extrabold uppercase tracking-wider text-[#120d1c] transition-all hover:bg-[#f0b878] shadow-xl shadow-[#e8a05c]/20 active:scale-[0.98]"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#a8e08f] px-7 py-3 text-xs font-extrabold uppercase tracking-wider text-[#120d1c] transition-all hover:bg-[#b9ea9f] shadow-xl shadow-[#a8e08f]/20 active:scale-[0.98]"
             >
               <span>Open Join Form</span>
               <ArrowRightIcon className="w-4 h-4" />

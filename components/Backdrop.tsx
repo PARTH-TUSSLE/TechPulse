@@ -3,6 +3,7 @@
 import { useSyncExternalStore } from "react";
 import PixelBlast from "./PixelBlast";
 import LightPillar from "./LightPillar";
+import PulseWatermark from "./PulseWatermark";
 
 function subscribeReducedMotion(callback: () => void) {
   const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -23,10 +24,10 @@ export default function Backdrop() {
       {/* Volumetric light pillar rising behind the hero */}
       <div className="absolute inset-0 opacity-70">
         <LightPillar
-          topColor="#e8a05c"
+          topColor="#a8e08f"
           bottomColor="#120d1c"
-          intensity={0.7}
-          glowAmount={0.024}
+          intensity={1}
+          glowAmount={0.0024}
           pillarWidth={2.2}
           pillarHeight={0.5}
           noiseIntensity={0.4}
@@ -35,12 +36,12 @@ export default function Backdrop() {
         />
       </div>
 
-      {/* Warm amber under-glow */}
+      {/* Light green under-glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(60% 35% at 50% 0%, rgba(232,160,92,0.14), transparent 70%)",
+            "radial-gradient(60% 35% at 50% 0%, rgba(168,224,143,0.14), transparent 70%)",
         }}
       />
 
@@ -79,6 +80,9 @@ export default function Backdrop() {
 
       {/* Subtle overlay scrim for text contrast */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#120d1c]/40 via-[#120d1c]/70 to-[#120d1c]" />
+
+      {/* Giant brand watermark — floating pulse line, behind content */}
+      <PulseWatermark />
     </div>
   );
 }

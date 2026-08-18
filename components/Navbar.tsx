@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { nav, joinUrl, club } from "@/lib/club";
 import { ExternalLinkIcon, ArrowRightIcon } from "@/components/Icons";
+import Logo from "@/components/Logo";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -55,7 +56,7 @@ export default function Navbar() {
         }`}
       >
         <span className="flex items-center gap-2">
-          <span className="tp-heartbeat h-1.5 w-1.5 rounded-full bg-[#e8a05c]" />
+          <span className="tp-heartbeat h-1.5 w-1.5 rounded-full bg-[#a8e08f]" />
           {club.school} &middot; {club.college}
         </span>
         <span className="hidden sm:flex items-center gap-2">
@@ -66,10 +67,9 @@ export default function Navbar() {
       <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 sm:px-6" aria-label="Main Navigation">
         {/* Brand identity */}
         <a href="#home" className="group flex items-center gap-2.5 min-w-0" onClick={() => setOpen(false)}>
-          <img
-            src="/logo/logo%20main-final.svg"
-            alt="TechPulse logo"
-            className="h-12 w-12 shrink-0 object-contain transition-transform duration-300 group-hover:scale-105"
+          <Logo
+            className="h-12 w-12 shrink-0 transition-transform duration-300 group-hover:scale-105"
+            animated
           />
           <div className="flex flex-col min-w-0">
             <span className="text-sm font-bold tracking-tight text-[#f4f5f7] group-hover:text-[#ffffff] transition-colors truncate">
@@ -121,7 +121,7 @@ export default function Navbar() {
             href={joinUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 bg-[#e8a05c] px-4 py-2 text-[11px] font-bold uppercase tracking-wider text-[#120d1c] transition-all hover:bg-[#f0b878] shadow-md shadow-[#e8a05c]/20 active:scale-[0.98]"
+            className="group inline-flex items-center gap-2 bg-[#a8e08f] px-4 py-2 text-[11px] font-bold uppercase tracking-wider text-[#120d1c] transition-all hover:bg-[#b9ea9f] shadow-md shadow-[#a8e08f]/20 active:scale-[0.98]"
           >
             <span className="tp-heartbeat h-1.5 w-1.5 rounded-full bg-[#120d1c]" aria-hidden />
             <span>Apply</span>
@@ -167,11 +167,11 @@ export default function Navbar() {
           {/* Header Status Bar */}
           <div className="flex items-center justify-between border-b border-[#26203f] pb-3 text-[10px] font-mono tracking-widest text-[#a79fbd] uppercase">
             <span className="flex items-center gap-2 text-[#b497cf] font-bold">
-              <span className="tp-heartbeat h-2 w-2 rounded-full bg-[#e8a05c]" />
+              <span className="tp-heartbeat h-2 w-2 rounded-full bg-[#a8e08f]" />
               NAVIGATION
             </span>
             <span className="flex items-center gap-2">
-              <span className="tp-heartbeat h-1.5 w-1.5 rounded-full bg-[#e8a05c]" />
+              <span className="tp-heartbeat h-1.5 w-1.5 rounded-full bg-[#a8e08f]" />
               {club.school}
             </span>
           </div>
@@ -225,7 +225,7 @@ export default function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setOpen(false)}
-              className="w-full inline-flex items-center justify-center gap-2 bg-[#e8a05c] py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#120d1c] shadow-lg shadow-[#e8a05c]/20 transition-all hover:bg-[#f0b878] active:scale-[0.98]"
+              className="w-full inline-flex items-center justify-center gap-2 bg-[#a8e08f] py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#120d1c] shadow-lg shadow-[#a8e08f]/20 transition-all hover:bg-[#b9ea9f] active:scale-[0.98]"
             >
               <span>Apply for Slot</span>
               <ArrowRightIcon className="w-3.5 h-3.5" />

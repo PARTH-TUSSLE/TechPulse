@@ -19,7 +19,7 @@ export default function Purpose() {
       {/* Manifesto Index Rows */}
       <div className="mt-8 sm:mt-12">
         {mission.map((item, index) => (
-          <Reveal key={item.title} delay={index * 80}>
+          <Reveal key={item.title} delay={index * 80} variant="slide-left">
             <div className="group grid grid-cols-12 gap-4 items-start py-7 sm:py-8 border-b border-[#2c2345] transition-colors duration-300 last:border-b-0 hover:bg-[#1b1531]/40">
               <div className="col-span-12 sm:col-span-2 flex sm:block items-baseline gap-3">
                 <span className="font-mono text-2xl sm:text-4xl font-black text-[#b497cf] tracking-tight">
@@ -48,7 +48,7 @@ export default function Purpose() {
       </div>
 
       {/* Editorial Quote Banner */}
-      <Reveal delay={240} className="mt-10 sm:mt-14">
+      <Reveal delay={240} variant="scale" className="mt-10 sm:mt-14">
         <div className="relative border border-[#2c2345] bg-[#1b1531]/60 p-7 sm:p-10 overflow-hidden">
           <blockquote className="font-serif text-2xl sm:text-4xl text-[#f4f5f7] italic leading-snug max-w-3xl tracking-tight">
             &ldquo;Engineering education reaches its full potential when students are given the freedom, structure, and

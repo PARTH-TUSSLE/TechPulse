@@ -5,7 +5,7 @@ import { ArrowRightIcon } from "@/components/Icons";
 
 function EventItem({ event, index }: { event: Event; index: number }) {
   return (
-    <Reveal delay={index * 80}>
+    <Reveal delay={index * 80} variant="slide-right">
       <article className="border border-[#2c2345] bg-[#1b1531] p-5 sm:p-7 transition-all duration-300 hover:border-[#b497cf]/60 hover:shadow-xl hover:shadow-[#b497cf]/5">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {/* Left Date Column */}

@@ -424,7 +424,7 @@ export default function Team() {
             href={joinUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 shrink-0 bg-[#e8a05c] px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#120d1c] transition-all hover:bg-[#f0b878] active:scale-[0.98]"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 shrink-0 bg-[#a8e08f] px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#120d1c] transition-all hover:bg-[#b9ea9f] active:scale-[0.98]"
           >
             <span>Apply for Slot</span>
             <ArrowRightIcon className="w-4 h-4" />

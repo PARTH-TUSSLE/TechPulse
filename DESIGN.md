@@ -3,7 +3,7 @@ name: TechPulse
 description: Midnight terminal aesthetic for the CSE student club — ink-dark surfaces, one lavender signal, mono spec-sheet labels.
 colors:
   primary: "#b497cf"
-  glow: "#e8a05c"
+  glow: "#a8e08f"
   ink: "#120d1c"
   surface: "#1b1531"
   surface-hover: "#241c40"
@@ -107,7 +107,7 @@ components:
 
 **Creative North Star: "The Midnight Terminal"**
 
-Every surface of TechPulse reads like a terminal session left running at midnight: a deep-violet phosphor canvas, hairline-ruled panes, and a single lavender signal color that behaves like a live cursor — present, precise, and never decorative. A warm amber heartbeat threads through the live indicators — the pulse dot, SYS.ONLINE, the blinking cursor block — so the page feels alive and soulful, not static chrome. The system is a technical spec-sheet dressed as a club site: field numbers, mono uppercase labels, dotted indicators, and ruled borders that separate information the way code comments separate sections.
+Every surface of TechPulse reads like a terminal session left running at midnight: a deep-violet phosphor canvas, hairline-ruled panes, and a single lavender signal color that behaves like a live cursor — present, precise, and never decorative. A light green heartbeat threads through the live indicators — the pulse dot, SYS.ONLINE, the blinking cursor block — so the page feels alive and soulful, not static chrome. The system is a technical spec-sheet dressed as a club site: field numbers, mono uppercase labels, dotted indicators, and ruled borders that separate information the way code comments separate sections.
 
 Density is comfortable but disciplined. Layout is sharp-cornered and rectilinear — no rounding, no gradients-as-decoration, no drop-shadow theater. Depth comes from tonal layering (ink → surface → surface-hover) and from hairline borders, not from elevation. The one serif voice (Instrument Serif, italic) is reserved for editorial moments — the tagline and the quote — a deliberate counter-voice to the industrial sans, used rarely so it stays surprising. The lavender accent is the single live signal: the pulse dot, the active nav marker, the stat counter, the current carousel slide. Everything else stays in the neutral ramp so that lavender always means "now / live / selected / here."
 
@@ -115,20 +115,20 @@ The visual grammar is obsessed with the number and the label: `01 / BETTERMENT`,
 
 **Key Characteristics:**
 - Deep-violet phosphor canvas (`#120d1c`) with hairline-ruled panels (`#2c2345` / `#26203f`).
-- One lavender signal (`#b497cf`) for structural accent, warmed by an amber heartbeat (`#e8a05c`) on live indicators.
+- One lavender signal (`#b497cf`) for structural accent, lit by a light green heartbeat (`#a8e08f`) on live indicators.
 - Sharp corners everywhere — radius is zero by doctrine.
 - JetBrains Mono for every label, kicker, stat, and index; Space Grotesk for reading and display; Instrument Serif italic for rare editorial voice.
 - Flat by default; shadow is a hover-state response, not an ambient condition.
 
 ## Colors
 
-The palette is a two-signal system: a lavender structural accent against a deep-violet neutral ramp, warmed by an amber heartbeat on live moments. No other hues exist; introducing them breaks the terminal metaphor.
+The palette is a two-signal system: a lavender structural accent against a deep-violet neutral ramp, lit by a light green heartbeat on live moments. No other hues exist; introducing them breaks the terminal metaphor.
 
 ### Primary
 - **Live Lavender** (#b497cf): The structural signal. Section kickers and indices, active nav markers and active filter pills, stat numbers, event dates, speaker times and venues, the live carousel slide, accent buttons, and the focus ring. It means "now / live / selected / here." It sits on ink and surface but never floods a screen.
 
 ### Secondary
-- **Warm Heartbeat** (#e8a05c): The soul accent — reserved for live indicators that pulse: the pulse dot in the meta band, SYS.ONLINE, the blinking cursor block after the tagline and in stat cells, the carousel scroll cue, the marquee diamonds, and the footer status dot. Where lavender structures, amber breathes. Use on tiny live elements only, never as a fill or a border.
+- **Light Green Heartbeat** (#a8e08f): The soul accent — reserved for live indicators that pulse: the pulse dot in the meta band, SYS.ONLINE, the blinking cursor block after the tagline and in stat cells, the carousel scroll cue, the marquee diamonds, and the footer status dot. Where lavender structures, green breathes. Use on tiny live elements only, never as a fill or a border.
 
 ### Neutral
 - **Violet Ink** (#120d1c): The page and backdrop ground. Also the chip and inner-badge fill.
@@ -142,9 +142,9 @@ The palette is a two-signal system: a lavender structural accent against a deep-
 - **Faint Trace** (#7c7192): The quietest text and placeholder tones.
 
 ### Named Rules
-**The Two-Signal Rule.** Lavender structures, amber breathes. Lavender marks the selected/structural signal; amber marks only what is currently alive and pulsing. Both together cover ≤10% of any given screen — their rarity is the point.
-**The No-Gradient Rule.** Backgrounds are flat fills; the only permitted gradients are the backdrop scrim and the ambient radial glows (lavender pillar, amber under-glow), never decorative color ramps.
-**The Ink Ground Rule.** Every color sits on ink or surface — lavender, amber, mist, and muted are never used as page backgrounds, only as foreground signal, fills, and borders.
+**The Two-Signal Rule.** Lavender structures, green breathes. Lavender marks the selected/structural signal; green marks only what is currently alive and pulsing. Both together cover ≤10% of any given screen — their rarity is the point.
+**The No-Gradient Rule.** Backgrounds are flat fills; the only permitted gradients are the backdrop scrim and the ambient radial glows (lavender pillar, green under-glow), never decorative color ramps.
+**The Ink Ground Rule.** Every color sits on ink or surface — lavender, green, mist, and muted are never used as page backgrounds, only as foreground signal, fills, and borders.
 
 ## Typography
 
@@ -239,7 +239,7 @@ The unit of the system — a ruled row or panel built from three parts: a lavend
 - **Do** respect `prefers-reduced-motion` (reduced: no animation, no reveal transforms).
 
 ### Don't:
-- **Don't** introduce a third accent hue — lavender structures, amber breathes, and that is the whole signal strategy.
+- **Don't** introduce a third accent hue — lavender structures, green breathes, and that is the whole signal strategy.
 - **Don't** round corners on buttons, cards, panels, or inputs.
 - **Don't** use lavender as a background fill beyond button/chip/pill forms.
 - **Don't** add ambient drop shadows to resting cards.

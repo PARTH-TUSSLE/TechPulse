@@ -5,7 +5,7 @@
   "extensions": {
     "colorMeta": {
       "primary": { "role": "primary", "displayName": "Live Lavender", "canonical": "#b497cf", "tonalRamp": ["#2a2240", "#3b2f5c", "#4d3d78", "#604a95", "#7358b2", "#8666c2", "#9a79d0", "#b497cf", "#c4a5e6", "#d7c0ee", "#e9dcf7", "#f5effb"] },
-      "glow": { "role": "secondary", "displayName": "Warm Heartbeat", "canonical": "#e8a05c", "tonalRamp": ["#3a2612", "#55381a", "#714a22", "#8d5c2a", "#a96e32", "#c2843f", "#d69250", "#e8a05c", "#f0b878", "#f6cf9a", "#fbe4c2", "#fdf3e6"] },
+      "glow": { "role": "secondary", "displayName": "Light Green Heartbeat", "canonical": "#a8e08f", "tonalRamp": ["#22330f", "#334d18", "#446821", "#55832a", "#669e33", "#7cbc46", "#8fcf67", "#a8e08f", "#b9ea9f", "#d4f2c2", "#e7f7dc", "#f4fbea"] },
       "ink": { "role": "neutral", "displayName": "Violet Ink", "canonical": "#120d1c", "tonalRamp": ["#060409", "#090610", "#0c0816", "#0f0b1a", "#120d1c", "#161023", "#1a1330", "#1f1738"] },
       "surface": { "role": "neutral", "displayName": "Deep Surface", "canonical": "#1b1531", "tonalRamp": ["#080610", "#0c0920", "#110d2a", "#171233", "#1b1531", "#1f1838", "#241c40", "#2a214a"] },
       "surface-hover": { "role": "neutral", "displayName": "Surface Hover", "canonical": "#241c40", "tonalRamp": ["#0c0918", "#110d24", "#161131", "#1c1638", "#241c40", "#2b2248", "#322850", "#392e58"] },
@@ -102,18 +102,18 @@
   ],
   "narrative": {
     "northStar": "The Midnight Terminal",
-    "overview": "Every surface of TechPulse reads like a terminal session left running at midnight: a deep-violet phosphor canvas, hairline-ruled panes, and a single lavender signal color that behaves like a live cursor — present, precise, and never decorative. A warm amber heartbeat threads through the live indicators — the pulse dot, SYS.ONLINE, the blinking cursor block — so the page feels alive and soulful, not static chrome. The system is a technical spec-sheet dressed as a club site: field numbers, mono uppercase labels, dotted indicators, and ruled borders that separate information the way code comments separate sections.",
+    "overview": "Every surface of TechPulse reads like a terminal session left running at midnight: a deep-violet phosphor canvas, hairline-ruled panes, and a single lavender signal color that behaves like a live cursor — present, precise, and never decorative. A light green heartbeat threads through the live indicators — the pulse dot, SYS.ONLINE, the blinking cursor block — so the page feels alive and soulful, not static chrome. The system is a technical spec-sheet dressed as a club site: field numbers, mono uppercase labels, dotted indicators, and ruled borders that separate information the way code comments separate sections.",
     "keyCharacteristics": [
       "Deep-violet phosphor canvas (#120d1c) with hairline-ruled panels (#2c2345 / #26203f).",
-      "One lavender signal (#b497cf) for structural accent, warmed by an amber heartbeat (#e8a05c) on live indicators.",
+      "One lavender signal (#b497cf) for structural accent, lit by a light green heartbeat (#a8e08f) on live indicators.",
       "Sharp corners everywhere — radius is zero by doctrine.",
       "JetBrains Mono for every label, kicker, stat, and index; Space Grotesk for reading and display; Instrument Serif italic for rare editorial voice.",
       "Flat by default; shadow is a hover-state response, not an ambient condition."
     ],
     "rules": [
-      { "name": "The Two-Signal Rule", "body": "Lavender structures, amber breathes. Lavender marks the selected/structural signal; amber marks only what is currently alive and pulsing. Both together cover ≤10% of any given screen — their rarity is the point.", "section": "colors" },
-      { "name": "The No-Gradient Rule", "body": "Backgrounds are flat fills; the only permitted gradients are the backdrop scrim and the ambient radial glows (lavender pillar, amber under-glow), never decorative color ramps.", "section": "colors" },
-      { "name": "The Ink Ground Rule", "body": "Every color sits on ink or surface — lavender, amber, mist, and muted are never used as page backgrounds, only as foreground signal, fills, and borders.", "section": "colors" },
+      { "name": "The Two-Signal Rule", "body": "Lavender structures, green breathes. Lavender marks the selected/structural signal; green marks only what is currently alive and pulsing. Both together cover ≤10% of any given screen — their rarity is the point.", "section": "colors" },
+      { "name": "The No-Gradient Rule", "body": "Backgrounds are flat fills; the only permitted gradients are the backdrop scrim and the ambient radial glows (lavender pillar, green under-glow), never decorative color ramps.", "section": "colors" },
+      { "name": "The Ink Ground Rule", "body": "Every color sits on ink or surface — lavender, green, mist, and muted are never used as page backgrounds, only as foreground signal, fills, and borders.", "section": "colors" },
       { "name": "The Mono Label Rule", "body": "Any text that names, numbers, or categorizes is JetBrains Mono uppercase with wide tracking. If it reads like a label, it is set in mono. If it reads like a sentence, it is set in Space Grotesk.", "section": "typography" },
       { "name": "The Serif Rarity Rule", "body": "Instrument Serif appears at most twice per page. It is the editorial exception, not a body voice.", "section": "typography" },
       { "name": "The Tight-Tracking Rule", "body": "All sans display and headline text tracks tight (-0.02em to -0.03em) and sets leading to 1 or below. Air is added with margin, never with line-height.", "section": "typography" },
@@ -124,7 +124,7 @@
     ],
     "dos": [
       "Do set every label, kicker, index, stat, and button in JetBrains Mono uppercase with wide tracking — it is the signature voice.",
-      "Do use lavender for structural/selected signals and amber only for live pulsing indicators — pulse dots, SYS.ONLINE, blinking cursor block, marquee diamonds, scroll cue.",
+      "Do use lavender for structural/selected signals and green only for live pulsing indicators — pulse dots, SYS.ONLINE, blinking cursor block, marquee diamonds, scroll cue.",
       "Do keep every corner at radius 0.",
       "Do use 1px hairlines (#2c2345 / #26203f) to structure space.",
       "Do keep surfaces flat at rest; introduce shadow only on hover or for stated emphasis.",
@@ -132,9 +132,9 @@
       "Do respect prefers-reduced-motion (reduced: no animation, no reveal transforms)."
     ],
     "donts": [
-      "Don't introduce a third accent hue — lavender structures, amber breathes, and that is the whole signal strategy.",
+      "Don't introduce a third accent hue — lavender structures, green breathes, and that is the whole signal strategy.",
       "Don't round corners on buttons, cards, panels, or inputs.",
-      "Don't use lavender or amber as a background fill beyond button/chip/pill forms.",
+      "Don't use lavender or green as a background fill beyond button/chip/pill forms.",
       "Don't add ambient drop shadows to resting cards.",
       "Don't use gradients for decoration — only the backdrop scrim and ambient radial glows are permitted.",
       "Don't set body copy wider than max-w-xl (36rem).",

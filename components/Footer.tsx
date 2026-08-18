@@ -1,5 +1,6 @@
 import { club, developer } from "@/lib/club";
 import { ExternalLinkIcon } from "@/components/Icons";
+import Logo from "@/components/Logo";
 
 const socialLinks = [
   { label: "GitHub", href: developer.socials.github },
@@ -15,10 +16,9 @@ export default function Footer() {
           {/* Brand Col */}
           <div className="md:col-span-5 space-y-3">
             <div className="flex items-center gap-2.5">
-              <img
-                src="/logo/logo%20main-final.svg"
-                alt="TechPulse logo"
+              <Logo
                 className="h-11 w-11 object-contain"
+                animated={false}
               />
               <span className="font-sans text-sm font-bold tracking-tight text-[#f4f5f7]">
                 TechPulse
@@ -89,7 +89,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} {club.name} &middot; {club.school}
           </span>
           <span className="flex items-center justify-center gap-1.5 uppercase tracking-wider">
-            <span className="tp-heartbeat h-1.5 w-1.5 rounded-full bg-[#e8a05c] shrink-0" />
+            <span className="tp-heartbeat h-1.5 w-1.5 rounded-full bg-[#a8e08f] shrink-0" />
             Dept. of CSE &middot; CGC University
           </span>
         </div>
