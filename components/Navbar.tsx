@@ -167,10 +167,13 @@ export default function Navbar() {
           {/* Header Status Bar */}
           <div className="flex items-center justify-between border-b border-[#26203f] pb-3 text-[10px] font-mono tracking-widest text-[#a79fbd] uppercase">
             <span className="flex items-center gap-2 text-[#b497cf] font-bold">
-              <span className="h-2 w-2 rounded-full bg-[#b497cf] animate-pulse" />
+              <span className="tp-heartbeat h-2 w-2 rounded-full bg-[#e8a05c]" />
               NAVIGATION
             </span>
-            <span>{club.school}</span>
+            <span className="flex items-center gap-2">
+              <span className="tp-heartbeat h-1.5 w-1.5 rounded-full bg-[#e8a05c]" />
+              {club.school}
+            </span>
           </div>
 
           {/* Navigation Links */}
@@ -178,6 +181,7 @@ export default function Navbar() {
             {nav.map((item, idx) => {
               const isExternal = item.href.startsWith("http");
               const isActive = !isExternal && active === item.href;
+              if (item.href === joinUrl) return null;
               return (
                 <a
                   key={item.href}
@@ -221,7 +225,7 @@ export default function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setOpen(false)}
-              className="w-full inline-flex items-center justify-center gap-2 bg-[#b497cf] py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#120d1c] shadow-lg shadow-[#b497cf]/20 transition-all hover:bg-[#c4a5e6] active:scale-[0.98]"
+              className="w-full inline-flex items-center justify-center gap-2 bg-[#e8a05c] py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#120d1c] shadow-lg shadow-[#e8a05c]/20 transition-all hover:bg-[#f0b878] active:scale-[0.98]"
             >
               <span>Apply for Slot</span>
               <ArrowRightIcon className="w-3.5 h-3.5" />
