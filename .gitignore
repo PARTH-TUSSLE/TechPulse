@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# impeccable live runtime state
+/.impeccable/live/roots.json
+/.impeccable/live/sessions/
