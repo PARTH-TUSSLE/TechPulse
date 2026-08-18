@@ -52,7 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${spaceGrotesk.variable} ${instrumentSerif.variable} ${jetBrainsMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full font-sans bg-[#090a0c] text-[#f4f5f7] selection:bg-[#b497cf]/25 selection:text-[#ffffff]">
+      <body className="min-h-full font-sans bg-[#120d1c] text-[#f4f5f7] selection:bg-[#b497cf]/25 selection:text-[#ffffff]">
         {children}
       </body>
     </html>

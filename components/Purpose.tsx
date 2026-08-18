@@ -6,34 +6,41 @@ export default function Purpose() {
   return (
     <section
       id="purpose"
-      className="relative mx-auto w-full max-w-6xl px-4 py-12 sm:py-16 sm:px-6 border-t border-[#1f2228] overflow-x-clip"
+      className="relative mx-auto w-full max-w-6xl px-4 py-16 sm:py-24 sm:px-6 overflow-x-clip"
       aria-labelledby="purpose-title"
     >
       <SectionHeader
+        index="01"
         category="Our Philosophy"
         title="Capability Over Vanity"
         lede="Designed for CSE students — real engineering capability, real guidance, zero noise."
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-8">
+      {/* Manifesto Index Rows */}
+      <div className="mt-8 sm:mt-12">
         {mission.map((item, index) => (
           <Reveal key={item.title} delay={index * 80}>
-            <div className="border border-[#1f2228] bg-[#111317] p-6 h-full flex flex-col justify-between transition-all duration-300 hover:border-[#b497cf]/50 hover:shadow-xl hover:shadow-[#b497cf]/5 group">
-              <div>
-                <div className="flex items-center justify-between border-b border-[#1f2228] pb-3 mb-4">
-                  <span className="font-mono text-xl font-black text-[#b497cf]">
-                    0{index + 1}
-                  </span>
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#8e95a2] font-semibold bg-[#090a0c] px-2.5 py-1 border border-[#1f2228]">
-                    Pillar
-                  </span>
-                </div>
-                <h3 className="text-lg font-bold tracking-tight text-[#f4f5f7] group-hover:text-[#b497cf] transition-colors">
+            <div className="group grid grid-cols-12 gap-4 items-start py-7 sm:py-8 border-b border-[#2c2345] transition-colors duration-300 last:border-b-0 hover:bg-[#1b1531]/40">
+              <div className="col-span-12 sm:col-span-2 flex sm:block items-baseline gap-3">
+                <span className="font-mono text-2xl sm:text-4xl font-black text-[#b497cf] tracking-tight">
+                  0{index + 1}
+                </span>
+                <span className="sm:hidden text-[10px] font-mono uppercase tracking-widest text-[#7c7192]">
+                  Pillar
+                </span>
+              </div>
+              <div className="col-span-12 sm:col-span-7">
+                <h3 className="text-xl sm:text-3xl font-black tracking-[-0.02em] text-[#f4f5f7] leading-tight transition-colors group-hover:text-[#b497cf]">
                   {item.title}
                 </h3>
-                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#8e95a2]">
+                <p className="mt-2 text-sm sm:text-base leading-relaxed text-[#a79fbd] max-w-xl">
                   {item.body}
                 </p>
+              </div>
+              <div className="col-span-12 sm:col-span-3 hidden sm:flex justify-end">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-[#7c7192] self-center transition-colors group-hover:text-[#a79fbd]">
+                  Pillar &mdash; {String(index + 1).padStart(2, "0")}
+                </span>
               </div>
             </div>
           </Reveal>
@@ -41,14 +48,18 @@ export default function Purpose() {
       </div>
 
       {/* Editorial Quote Banner */}
-      <Reveal delay={240} className="mt-8">
-        <div className="border-l-4 border-[#b497cf] bg-[#111317]/60 p-5 sm:p-6 border-y border-r border-[#1f2228]">
-          <blockquote className="font-serif text-xl sm:text-2xl text-[#f4f5f7] italic leading-snug">
-            &ldquo;Engineering education reaches its full potential when students are given the freedom, structure, and guidance to build real things together.&rdquo;
+      <Reveal delay={240} className="mt-10 sm:mt-14">
+        <div className="relative border border-[#2c2345] bg-[#1b1531]/60 p-7 sm:p-10 overflow-hidden">
+          <blockquote className="font-serif text-2xl sm:text-4xl text-[#f4f5f7] italic leading-snug max-w-3xl tracking-tight">
+            &ldquo;Engineering education reaches its full potential when students are given the freedom, structure, and
+            guidance to build real things together.&rdquo;
           </blockquote>
-          <p className="mt-3 text-xs font-mono tracking-wider text-[#b497cf] uppercase font-bold">
-            &mdash; TechPulse Leadership
-          </p>
+          <div className="mt-6 flex items-center gap-3">
+            <span className="h-px w-8 bg-[#b497cf]" aria-hidden />
+            <p className="text-xs font-mono tracking-wider text-[#b497cf] uppercase font-bold">
+              &mdash; TechPulse Leadership
+            </p>
+          </div>
         </div>
       </Reveal>
     </section>

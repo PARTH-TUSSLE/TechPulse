@@ -2,6 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import PixelBlast from "./PixelBlast";
+import LightPillar from "./LightPillar";
 
 function subscribeReducedMotion(callback: () => void) {
   const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -18,40 +19,66 @@ export default function Backdrop() {
   const reduceMotion = useSyncExternalStore(subscribeReducedMotion, getReducedMotion, () => false);
 
   return (
-    <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[#090a0c]" aria-hidden="true">
+    <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[#120d1c]" aria-hidden="true">
+      {/* Volumetric light pillar rising behind the hero */}
+      <div className="absolute inset-0 opacity-70">
+        <LightPillar
+          topColor="#e8a05c"
+          bottomColor="#120d1c"
+          intensity={0.7}
+          glowAmount={0.024}
+          pillarWidth={2.2}
+          pillarHeight={0.5}
+          noiseIntensity={0.4}
+          mixBlendMode="screen"
+          quality="medium"
+        />
+      </div>
+
+      {/* Warm amber under-glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(60% 35% at 50% 0%, rgba(232,160,92,0.14), transparent 70%)",
+        }}
+      />
+
+      {/* Pixel dust field */}
       {reduceMotion ? (
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "radial-gradient(80% 50% at 50% 0%, rgba(180, 151, 207, 0.15), transparent 70%)",
+              "radial-gradient(80% 50% at 50% 0%, rgba(180, 151, 207, 0.18), transparent 70%)",
           }}
         />
       ) : (
-        <div className="absolute inset-0 opacity-80 pointer-events-none">
+        <div className="absolute inset-0 opacity-70 pointer-events-none">
           <PixelBlast
             variant="square"
-            pixelSize={4}
-            color="#ab5ff3"
+            pixelSize={3}
+            color="#c9b0e3"
             patternScale={2}
-            patternDensity={2}
-            pixelSizeJitter={0}
-            rippleSpeed={0.4}
-            rippleThickness={0.12}
-            rippleIntensityScale={1.5}
-            liquid={false}
-            liquidStrength={0.12}
-            liquidRadius={1.2}
-            liquidWobbleSpeed={5}
-            speed={0.4}
-            edgeFade={0.11}
+            patternDensity={2.2}
+            pixelSizeJitter={0.2}
+            rippleSpeed={0.5}
+            rippleThickness={0.14}
+            rippleIntensityScale={1.4}
+            speed={0.45}
+            edgeFade={0.2}
             transparent
           />
         </div>
       )}
 
+      {/* Slow scan band */}
+      {!reduceMotion && (
+        <div className="tp-scanband absolute left-0 right-0 h-24 opacity-[0.05] bg-gradient-to-b from-transparent via-[#f4f5f7] to-transparent" />
+      )}
+
       {/* Subtle overlay scrim for text contrast */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#090a0c]/40 via-[#090a0c]/70 to-[#090a0c]" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#120d1c]/40 via-[#120d1c]/70 to-[#120d1c]" />
     </div>
   );
 }
