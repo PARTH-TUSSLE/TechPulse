@@ -54,9 +54,13 @@ function MemberRow({ member }: { member: TeamMember }) {
 function TeamSummaryCard({
   team,
   isActive,
+  isOpen,
+  onToggle,
 }: {
   team: Team;
   isActive: boolean;
+  isOpen: boolean;
+  onToggle: () => void;
 }) {
   return (
     <div
@@ -78,7 +82,7 @@ function TeamSummaryCard({
       <h3 className="mt-3 text-xl font-extrabold tracking-tight text-[#f4f5f7]">
         {team.title}
       </h3>
-      <p className="mt-1.5 text-xs text-[#a79fbd] leading-relaxed flex-1">
+      <p className="mt-1.5 text-xs text-[#a79fbd] leading-relaxed">
         {team.blurb}
       </p>
 
@@ -95,6 +99,29 @@ function TeamSummaryCard({
           </p>
         </div>
       </div>
+
+      {/* Expanded Roster Breakdown */}
+      {isOpen && (
+        <div className="mt-4 pt-4 border-t border-[#26203f] space-y-0.5 max-h-56 overflow-y-auto pr-1 no-scrollbar">
+          <p className="text-[10px] font-mono uppercase tracking-wider text-[#b497cf] font-bold mb-2">
+            Team Roster Breakdown
+          </p>
+          {team.members.map((m) => (
+            <MemberRow key={m.id} member={m} />
+          ))}
+        </div>
+      )}
+
+      <div className="mt-4 pt-4 border-t border-[#26203f]">
+        <button
+          type="button"
+          onClick={onToggle}
+          className="w-full inline-flex items-center justify-center gap-2 border border-[#3a3155] bg-[#120d1c] px-3 py-2 text-[10px] font-mono uppercase tracking-wider text-[#f4f5f7] font-bold transition-all hover:border-[#b497cf] hover:text-[#b497cf] active:scale-[0.98]"
+        >
+          <span>{isOpen ? "Hide Roster" : "View Full Roster"}</span>
+          {isOpen ? <ChevronUpIcon className="w-3.5 h-3.5" /> : <ChevronDownIcon className="w-3.5 h-3.5" />}
+        </button>
+      </div>
     </div>
   );
 }
@@ -102,6 +129,7 @@ function TeamSummaryCard({
 function TeamCarousel({ teams }: { teams: Team[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [expandedTeamId, setExpandedTeamId] = useState<string | null>(null);
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isUserInteractingRef = useRef(false);
@@ -223,7 +251,17 @@ function TeamCarousel({ teams }: { teams: Team[] }) {
         className="flex items-stretch gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar scroll-touch py-1 px-0.5 w-full max-w-full"
       >
         {teams.map((team, idx) => (
-          <TeamSummaryCard key={team.id} team={team} isActive={idx === currentIndex} />
+          <TeamSummaryCard
+            key={team.id}
+            team={team}
+            isActive={idx === currentIndex}
+            isOpen={expandedTeamId === team.id}
+            onToggle={() => {
+              const nextState = expandedTeamId === team.id ? null : team.id;
+              setExpandedTeamId(nextState);
+              if (nextState !== null) setIsPaused(true);
+            }}
+          />
         ))}
       </div>
 
