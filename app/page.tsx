@@ -1,8 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Backdrop from "@/components/Backdrop";
 import Hero from "@/components/Hero";
-import Marquee from "@/components/Marquee";
-import Purpose from "@/components/Purpose";
+import About from "@/components/About";
 import Team from "@/components/Team";
 import Events from "@/components/Events";
 import JoinUs from "@/components/JoinUs";
@@ -15,8 +14,7 @@ export default function Home() {
       <Navbar />
       <main className="relative z-10 w-full overflow-x-clip" id="main">
         <Hero />
-        <Marquee />
-        <Purpose />
+        <About />
         <Team />
         <Events />
         <JoinUs />

@@ -41,8 +41,8 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#purpose" className="text-[#a79fbd] hover:text-[#f4f5f7] transition-colors">
-                  02 / Philosophy
+                <a href="#about" className="text-[#a79fbd] hover:text-[#f4f5f7] transition-colors">
+                  02 / About
                 </a>
               </li>
               <li>

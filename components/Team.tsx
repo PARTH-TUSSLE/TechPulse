@@ -64,7 +64,7 @@ function TeamSummaryCard({
 }) {
   return (
     <div
-      className={`snap-start shrink-0 w-[calc(100vw-2.5rem)] max-w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] border bg-[#1b1531]/90 p-6 transition-all duration-300 flex flex-col ${
+      className={`tp-pulse-edge tp-pulse-edge-slow snap-start shrink-0 w-[calc(100vw-2.5rem)] max-w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] border bg-[#1b1531]/90 p-6 transition-all duration-300 flex flex-col ${
         isActive
           ? "border-[#b497cf] shadow-2xl shadow-[#b497cf]/10"
           : "border-[#2c2345] hover:border-[#3a3155]"
@@ -116,7 +116,7 @@ function TeamSummaryCard({
         <button
           type="button"
           onClick={onToggle}
-          className="w-full inline-flex items-center justify-center gap-2 border border-[#3a3155] bg-[#120d1c] px-3 py-2 text-[10px] font-mono uppercase tracking-wider text-[#f4f5f7] font-bold transition-all hover:border-[#b497cf] hover:text-[#b497cf] active:scale-[0.98]"
+          className="tp-pulse-edge tp-pulse-edge-thin tp-pulse-edge-slow w-full inline-flex items-center justify-center gap-2 border border-[#3a3155] bg-[#120d1c] px-3 py-2 text-[10px] font-mono uppercase tracking-wider text-[#f4f5f7] font-bold transition-all hover:border-[#b497cf] hover:text-[#b497cf] active:scale-[0.98]"
         >
           <span>{isOpen ? "Hide Roster" : "View Full Roster"}</span>
           {isOpen ? <ChevronUpIcon className="w-3.5 h-3.5" /> : <ChevronDownIcon className="w-3.5 h-3.5" />}
@@ -205,7 +205,7 @@ function TeamCarousel({ teams }: { teams: Team[] }) {
             onClick={() => setIsPaused((prev) => !prev)}
             aria-label={isPaused ? "Resume carousel" : "Pause carousel"}
             title={isPaused ? "Resume Carousel" : "Pause Carousel"}
-            className={`flex h-9 w-9 items-center justify-center border transition-all active:scale-95 ${
+            className={`tp-pulse-edge tp-pulse-edge-thin tp-pulse-edge-slow flex h-9 w-9 items-center justify-center border transition-all active:scale-95 ${
               isPaused
                 ? "border-[#b497cf] bg-[#b497cf] text-[#120d1c]"
                 : "border-[#3a3155] bg-[#120d1c] text-[#f4f5f7] hover:border-[#b497cf] hover:text-[#b497cf]"
@@ -217,7 +217,7 @@ function TeamCarousel({ teams }: { teams: Team[] }) {
             type="button"
             onClick={prevSlide}
             aria-label="Previous Team Card"
-            className="flex h-9 w-9 items-center justify-center border border-[#3a3155] bg-[#120d1c] text-[#f4f5f7] hover:border-[#b497cf] hover:text-[#b497cf] active:scale-95 transition-all"
+            className="tp-pulse-edge tp-pulse-edge-thin tp-pulse-edge-slow flex h-9 w-9 items-center justify-center border border-[#3a3155] bg-[#120d1c] text-[#f4f5f7] hover:border-[#b497cf] hover:text-[#b497cf] active:scale-95 transition-all"
           >
             <ChevronLeftIcon className="w-4 h-4" />
           </button>
@@ -225,7 +225,7 @@ function TeamCarousel({ teams }: { teams: Team[] }) {
             type="button"
             onClick={nextSlide}
             aria-label="Next Team Card"
-            className="flex h-9 w-9 items-center justify-center border border-[#3a3155] bg-[#120d1c] text-[#f4f5f7] hover:border-[#b497cf] hover:text-[#b497cf] active:scale-95 transition-all"
+            className="tp-pulse-edge tp-pulse-edge-thin tp-pulse-edge-slow flex h-9 w-9 items-center justify-center border border-[#3a3155] bg-[#120d1c] text-[#f4f5f7] hover:border-[#b497cf] hover:text-[#b497cf] active:scale-95 transition-all"
           >
             <ChevronRightIcon className="w-4 h-4" />
           </button>
@@ -287,7 +287,7 @@ function TeamAccordionItem({ team }: { team: Team }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="border border-[#2c2345] bg-[#1b1531]/90 p-4 sm:p-5 transition-colors hover:border-[#3a3155]">
+    <div className="tp-pulse-edge tp-pulse-edge-slow tp-card-glow border border-[#2c2345] bg-[#1b1531]/90 p-4 sm:p-5 hover:border-[#3a3155]">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
@@ -306,7 +306,7 @@ function TeamAccordionItem({ team }: { team: Team }) {
         <button
           type="button"
           onClick={() => setOpen(!open)}
-          className="self-start sm:self-center inline-flex items-center gap-1.5 border border-[#3a3155] bg-[#120d1c] px-3.5 py-1.5 text-[10px] font-mono uppercase tracking-wider text-[#f4f5f7] font-bold transition-colors hover:border-[#b497cf] hover:text-[#b497cf] active:scale-[0.98]"
+          className="tp-pulse-edge tp-pulse-edge-thin tp-pulse-edge-slow self-start sm:self-center inline-flex items-center gap-1.5 border border-[#3a3155] bg-[#120d1c] px-3.5 py-1.5 text-[10px] font-mono uppercase tracking-wider text-[#f4f5f7] font-bold transition-colors hover:border-[#b497cf] hover:text-[#b497cf] active:scale-[0.98]"
         >
           <span>{open ? "Hide Roster" : "View Roster"}</span>
           {open ? <ChevronUpIcon className="w-3.5 h-3.5" /> : <ChevronDownIcon className="w-3.5 h-3.5" />}
@@ -361,7 +361,7 @@ export default function Team() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {leadership.map((lead, i) => (
             <Reveal key={lead.id} delay={i * 80}>
-              <div className="border border-[#2c2345] bg-[#1b1531] p-5 flex items-center gap-4 transition-all hover:border-[#b497cf]/60 hover:shadow-xl hover:shadow-[#b497cf]/5">
+              <div className="tp-pulse-edge tp-pulse-edge-slow tp-card-glow border border-[#2c2345] bg-[#1b1531] p-5 flex items-center gap-4 hover:border-[#b497cf]/60">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center border border-[#b497cf]/60 bg-[#120d1c] font-mono text-sm font-extrabold text-[#b497cf]">
                   {initials(lead.name)}
                 </div>
@@ -402,7 +402,7 @@ export default function Team() {
               <button
                 type="button"
                 onClick={() => setFilter("all")}
-                className={`shrink-0 px-3.5 py-1.5 text-[10px] font-mono uppercase font-bold transition-all border ${
+                className={`tp-pulse-edge tp-pulse-edge-thin tp-pulse-edge-slow shrink-0 px-3.5 py-1.5 text-[10px] font-mono uppercase font-bold transition-all border ${
                   filter === "all"
                     ? "bg-[#b497cf] border-[#b497cf] text-[#120d1c]"
                     : "bg-[#1b1531] border-[#3a3155] text-[#a79fbd] hover:text-[#f4f5f7] hover:border-[#a79fbd]"
@@ -415,7 +415,7 @@ export default function Team() {
                   key={t.id}
                   type="button"
                   onClick={() => setFilter(t.id)}
-                  className={`shrink-0 px-3.5 py-1.5 text-[10px] font-mono uppercase font-bold transition-all border ${
+                  className={`tp-pulse-edge tp-pulse-edge-thin tp-pulse-edge-slow shrink-0 px-3.5 py-1.5 text-[10px] font-mono uppercase font-bold transition-all border ${
                     filter === t.id
                       ? "bg-[#b497cf] border-[#b497cf] text-[#120d1c]"
                       : "bg-[#1b1531] border-[#3a3155] text-[#a79fbd] hover:text-[#f4f5f7] hover:border-[#a79fbd]"
@@ -439,7 +439,7 @@ export default function Team() {
               <button
                 type="button"
                 onClick={() => setFilter("all")}
-                className="inline-flex items-center gap-2 border border-[#3a3155] bg-[#1b1531] px-5 py-2.5 text-xs font-mono font-bold text-[#b497cf] uppercase hover:border-[#b497cf] transition-all active:scale-95"
+                className="tp-pulse-edge tp-pulse-edge-thin tp-pulse-edge-slow inline-flex items-center gap-2 border border-[#3a3155] bg-[#1b1531] px-5 py-2.5 text-xs font-mono font-bold text-[#b497cf] uppercase hover:border-[#b497cf] transition-all active:scale-95"
               >
                 <ArrowLeftIcon className="w-4 h-4" />
                 <span>Back to All Teams</span>
@@ -462,7 +462,7 @@ export default function Team() {
             href={joinUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 shrink-0 bg-[#a8e08f] px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#120d1c] transition-all hover:bg-[#b9ea9f] active:scale-[0.98]"
+            className="tp-pulse-edge w-full sm:w-auto inline-flex items-center justify-center gap-2 shrink-0 bg-[#a8e08f] px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#120d1c] transition-all hover:bg-[#b9ea9f] active:scale-[0.98]"
           >
             <span>Apply for Slot</span>
             <ArrowRightIcon className="w-4 h-4" />

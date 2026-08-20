@@ -18,7 +18,7 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const sections = ["home", "purpose", "team", "events"]
+    const sections = ["home", "about", "team", "events"]
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => Boolean(el));
 
@@ -121,7 +121,7 @@ export default function Navbar() {
             href={joinUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 bg-[#a8e08f] px-4 py-2 text-[11px] font-bold uppercase tracking-wider text-[#120d1c] transition-all hover:bg-[#b9ea9f] shadow-md shadow-[#a8e08f]/20 active:scale-[0.98]"
+            className="tp-pulse-edge group inline-flex items-center gap-2 bg-[#a8e08f] px-4 py-2 text-[11px] font-bold uppercase tracking-wider text-[#120d1c] transition-all hover:bg-[#b9ea9f] shadow-md shadow-[#a8e08f]/20 active:scale-[0.98]"
           >
             <span className="tp-heartbeat h-1.5 w-1.5 rounded-full bg-[#120d1c]" aria-hidden />
             <span>Apply</span>
@@ -225,7 +225,7 @@ export default function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setOpen(false)}
-              className="w-full inline-flex items-center justify-center gap-2 bg-[#a8e08f] py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#120d1c] shadow-lg shadow-[#a8e08f]/20 transition-all hover:bg-[#b9ea9f] active:scale-[0.98]"
+              className="tp-pulse-edge w-full inline-flex items-center justify-center gap-2 bg-[#a8e08f] py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#120d1c] shadow-lg shadow-[#a8e08f]/20 transition-all hover:bg-[#b9ea9f] active:scale-[0.98]"
             >
               <span>Apply for Slot</span>
               <ArrowRightIcon className="w-3.5 h-3.5" />
