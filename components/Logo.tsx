@@ -17,6 +17,7 @@ export default function Logo({ className = "", animated = true }: LogoProps) {
     const el = ref.current;
     if (!el) return;
     let cancelled = false;
+    let loopTween: gsap.core.Tween | null = null;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -55,6 +56,33 @@ export default function Logo({ className = "", animated = true }: LogoProps) {
         })
           .to(drawTargets, { fillOpacity: 1, duration: 0.5 }, "-=0.4")
           .to(imageGroup, { opacity: 1, duration: 0.4 }, "<");
+
+        // Continuous pulse: the green outline of the main wave draws itself
+        // from its start point, covers the whole path, then returns to the
+        // start — looping forever.
+        if (main instanceof SVGPathElement) {
+          const len = main.getTotalLength();
+          tl.add(() => {
+            main.setAttribute("vector-effect", "non-scaling-stroke");
+            gsap.to(main, { fillOpacity: 0.4, duration: 0.5, ease: "power2.out" });
+            gsap.set(main, {
+              stroke: "#a8e08f",
+              strokeWidth: 1.6,
+              strokeLinecap: "round",
+              strokeLinejoin: "round",
+              strokeDasharray: len,
+              strokeDashoffset: len,
+              filter: "drop-shadow(0 0 4px rgba(168, 224, 143, 0.7))",
+            });
+            loopTween = gsap.to(main, {
+              strokeDashoffset: 0,
+              duration: 1.5,
+              ease: "power1.inOut",
+              repeat: -1,
+              yoyo: true,
+            });
+          });
+        }
       })
       .catch(() => {
         if (cancelled || !el) return;
@@ -62,6 +90,7 @@ export default function Logo({ className = "", animated = true }: LogoProps) {
 
     return () => {
       cancelled = true;
+      loopTween?.kill();
       if (el) el.innerHTML = "";
     };
   }, [animated]);

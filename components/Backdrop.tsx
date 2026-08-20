@@ -3,7 +3,6 @@
 import { useSyncExternalStore } from "react";
 import PixelBlast from "./PixelBlast";
 import LightPillar from "./LightPillar";
-import PulseWatermark from "./PulseWatermark";
 
 function subscribeReducedMotion(callback: () => void) {
   const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -80,9 +79,6 @@ export default function Backdrop() {
 
       {/* Subtle overlay scrim for text contrast */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#120d1c]/40 via-[#120d1c]/70 to-[#120d1c]" />
-
-      {/* Giant brand watermark — floating pulse line, behind content */}
-      <PulseWatermark />
     </div>
   );
 }
