@@ -36,6 +36,12 @@ export const leadership: TeamMember[] = [
     role: "Vice President · Technical Coordinator",
     lead: true,
   },
+  {
+    id: "secretary",
+    name: "Yash Sharma",
+    role: "Secretary & Treasurer",
+    lead: true,
+  },
 ];
 
 export const teams: Team[] = [

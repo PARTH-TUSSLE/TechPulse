@@ -56,15 +56,18 @@ function TeamSummaryCard({
   isActive,
   isOpen,
   onToggle,
+  onSelect,
 }: {
   team: Team;
   isActive: boolean;
   isOpen: boolean;
   onToggle: () => void;
+  onSelect: () => void;
 }) {
   return (
     <div
-      className={`tp-pulse-edge tp-pulse-edge-slow snap-start shrink-0 w-[calc(100vw-2.5rem)] max-w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] border bg-[#1b1531]/90 p-6 transition-all duration-300 flex flex-col ${
+      onClick={onSelect}
+      className={`tp-pulse-edge tp-pulse-edge-slow snap-start shrink-0 w-[calc(100vw-2.5rem)] max-w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] border bg-[#1b1531]/90 p-6 transition-all duration-300 flex flex-col cursor-pointer ${
         isActive
           ? "border-[#b497cf] shadow-2xl shadow-[#b497cf]/10"
           : "border-[#2c2345] hover:border-[#3a3155]"
@@ -132,58 +135,92 @@ function TeamCarousel({ teams }: { teams: Team[] }) {
   const [expandedTeamId, setExpandedTeamId] = useState<string | null>(null);
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const resumeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const manualPauseRef = useRef(false);
   const isUserInteractingRef = useRef(false);
-  const touchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const interactionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const markInteracting = useCallback(() => {
+    isUserInteractingRef.current = true;
+    if (interactionTimeoutRef.current) clearTimeout(interactionTimeoutRef.current);
+    interactionTimeoutRef.current = setTimeout(() => {
+      isUserInteractingRef.current = false;
+    }, 700);
+  }, []);
+
+  // Automatic carousel every 1400ms.
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      setExpandedTeamId(null);
+      setCurrentIndex((prev) => (prev + 1) % teams.length);
+    }, 1400);
+    return () => clearInterval(timer);
+  }, [isPaused, teams.length]);
+
+  // Any interaction stops autoplay immediately. It resumes on its own after a
+  // quiet moment unless the user explicitly paused via the pause button.
+  const pause = useCallback(() => {
+    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+    if (!manualPauseRef.current) setIsPaused(true);
+    resumeTimeoutRef.current = setTimeout(() => {
+      if (!manualPauseRef.current) setIsPaused(false);
+    }, 4000);
+  }, []);
+
+  const togglePause = () => {
+    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+    const next = !isPaused;
+    manualPauseRef.current = next;
+    setIsPaused(next);
+  };
+
+  const goTo = (index: number) => {
+    pause();
+    setExpandedTeamId(null);
+    setCurrentIndex(((index % teams.length) + teams.length) % teams.length);
+  };
+
+  const nextSlide = () => goTo(currentIndex + 1);
+  const prevSlide = () => goTo(currentIndex - 1);
+
+  const onInteractionStart = () => {
+    markInteracting();
+    pause();
+  };
 
   const scrollToCard = useCallback((index: number) => {
+    if (isUserInteractingRef.current) return;
     const container = scrollContainerRef.current;
     if (!container) return;
-    const card = container.children[index] as HTMLElement;
-    if (card) {
-      const left = card.offsetLeft - container.offsetLeft;
-      container.scrollTo({ left, behavior: "smooth" });
-    }
+    const card = container.children[index] as HTMLElement | undefined;
+    if (!card) return;
+    container.scrollTo({ left: card.offsetLeft - container.offsetLeft, behavior: "smooth" });
   }, []);
 
   useEffect(() => {
     scrollToCard(currentIndex);
   }, [currentIndex, scrollToCard]);
 
-  useEffect(() => {
-    if (isPaused) return;
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % teams.length);
-    }, 1700);
-    return () => clearInterval(timer);
-  }, [isPaused, teams.length]);
-
-  const nextSlide = () => setCurrentIndex((prev) => (prev + 1) % teams.length);
-  const prevSlide = () => setCurrentIndex((prev) => (prev - 1 + teams.length) % teams.length);
-
   const handleScroll = () => {
     if (!isUserInteractingRef.current) return;
     const container = scrollContainerRef.current;
     if (!container) return;
-    const firstCard = container.children[0] as HTMLElement;
+    const firstCard = container.children[0] as HTMLElement | undefined;
     if (!firstCard) return;
     const cardWidth = firstCard.clientWidth || 300;
-    const gap = 16;
-    const calculatedIndex = Math.round(container.scrollLeft / (cardWidth + gap));
+    const calculatedIndex = Math.round(container.scrollLeft / (cardWidth + 16));
     if (calculatedIndex >= 0 && calculatedIndex < teams.length && calculatedIndex !== currentIndex) {
       setCurrentIndex(calculatedIndex);
     }
   };
 
-  const handleTouchStart = () => {
-    isUserInteractingRef.current = true;
-  };
-
-  const handleTouchEnd = () => {
-    if (touchTimeoutRef.current) clearTimeout(touchTimeoutRef.current);
-    touchTimeoutRef.current = setTimeout(() => {
-      isUserInteractingRef.current = false;
-    }, 800);
-  };
+  useEffect(() => {
+    return () => {
+      if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+      if (interactionTimeoutRef.current) clearTimeout(interactionTimeoutRef.current);
+    };
+  }, []);
 
   return (
     <div className="space-y-3">
@@ -202,7 +239,7 @@ function TeamCarousel({ teams }: { teams: Team[] }) {
         <div className="flex items-center gap-2 shrink-0">
           <button
             type="button"
-            onClick={() => setIsPaused((prev) => !prev)}
+            onClick={togglePause}
             aria-label={isPaused ? "Resume carousel" : "Pause carousel"}
             title={isPaused ? "Resume Carousel" : "Pause Carousel"}
             className={`tp-pulse-edge tp-pulse-edge-thin tp-pulse-edge-slow flex h-9 w-9 items-center justify-center border transition-all active:scale-95 ${
@@ -246,9 +283,10 @@ function TeamCarousel({ teams }: { teams: Team[] }) {
       <div
         ref={scrollContainerRef}
         onScroll={handleScroll}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-        className="flex items-stretch gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar scroll-touch py-1 px-0.5 w-full max-w-full"
+        onPointerDown={onInteractionStart}
+        onTouchStart={onInteractionStart}
+        onWheel={onInteractionStart}
+        className="flex items-stretch gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar scroll-touch py-1 px-0.5 w-full max-w-full scroll-smooth"
       >
         {teams.map((team, idx) => (
           <TeamSummaryCard
@@ -256,10 +294,10 @@ function TeamCarousel({ teams }: { teams: Team[] }) {
             team={team}
             isActive={idx === currentIndex}
             isOpen={expandedTeamId === team.id}
+            onSelect={pause}
             onToggle={() => {
-              const nextState = expandedTeamId === team.id ? null : team.id;
-              setExpandedTeamId(nextState);
-              if (nextState !== null) setIsPaused(true);
+              pause();
+              setExpandedTeamId(expandedTeamId === team.id ? null : team.id);
             }}
           />
         ))}
@@ -271,7 +309,7 @@ function TeamCarousel({ teams }: { teams: Team[] }) {
           <button
             key={t.id}
             type="button"
-            onClick={() => setCurrentIndex(idx)}
+            onClick={() => goTo(idx)}
             aria-label={`Go to ${t.title}`}
             className={`h-1 transition-all ${
               idx === currentIndex ? "w-8 bg-[#b497cf]" : "w-2 bg-[#3a3155] hover:bg-[#a79fbd]"
