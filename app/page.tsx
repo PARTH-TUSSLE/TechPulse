@@ -6,10 +6,12 @@ import Team from "@/components/Team";
 import Events from "@/components/Events";
 import JoinUs from "@/components/JoinUs";
 import Footer from "@/components/Footer";
+import InitialLoader from "@/components/InitialLoader";
 
 export default function Home() {
   return (
     <div className="relative min-h-screen w-full overflow-x-clip">
+      <InitialLoader />
       <Backdrop />
       <Navbar />
       <main className="relative z-10 w-full overflow-x-clip" id="main">
