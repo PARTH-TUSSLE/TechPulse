@@ -405,12 +405,25 @@ const LightPillar: React.FC<LightPillarProps> = ({
     };
     rafRef.current = requestAnimationFrame(animate);
 
-    // Pause rendering while the tab is hidden — a major battery/CPU win.
-    const handleVisibility = () => {
-      if (document.hidden && rafRef.current) {
+    let isIntersecting = true;
+    const observer = new IntersectionObserver(([entry]) => {
+      isIntersecting = entry.isIntersecting;
+      if (!isIntersecting && rafRef.current) {
         cancelAnimationFrame(rafRef.current);
         rafRef.current = null;
-      } else if (!document.hidden && !rafRef.current) {
+      } else if (isIntersecting && !rafRef.current && !document.hidden) {
+        lastTime = performance.now();
+        rafRef.current = requestAnimationFrame(animate);
+      }
+    }, { threshold: 0 });
+    observer.observe(container);
+
+    // Pause rendering while the tab is hidden — a major battery/CPU win.
+    const handleVisibility = () => {
+      if ((document.hidden || !isIntersecting) && rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      } else if (!document.hidden && isIntersecting && !rafRef.current) {
         lastTime = performance.now();
         rafRef.current = requestAnimationFrame(animate);
       }
@@ -437,6 +450,7 @@ const LightPillar: React.FC<LightPillarProps> = ({
 
     // Cleanup
     return () => {
+      observer.disconnect();
       document.removeEventListener('visibilitychange', handleVisibility);
       window.removeEventListener('resize', handleResize);
       if (interactive) {

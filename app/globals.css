@@ -187,6 +187,7 @@ body {
   animation: tp-edge-spin var(--tp-edge-speed, 4s) linear infinite;
   opacity: var(--tp-edge-opacity, 1);
   pointer-events: none;
+  transform: translateZ(0);
 }
 
 .tp-pulse-edge-slow {
